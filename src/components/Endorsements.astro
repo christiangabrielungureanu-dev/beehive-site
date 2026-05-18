@@ -1,0 +1,214 @@
+---
+const testimonials = [
+  {
+    quote:
+      "Cristian brings a rare combination of analytical rigor and creative marketing instinct. He helped us think through our book launch like a product launch — with real positioning, audience research, and a go-to-market plan. The result was a debut that significantly outperformed our expectations.",
+    name: "Asaf Braverman",
+    title: "Author",
+    company: "The Old New Method",
+    companyHref: "https://oldnewmethod.com",
+    image: "/images/endorsements/asaf-braverman.jpg",
+    initials: "AB",
+    color: "#6366F1",
+  },
+  {
+    quote:
+      "Working with Cristian transformed how I think about content marketing. His frameworks are sharp, his feedback is direct, and he genuinely cares about outcomes. If you want someone who treats your book like a business — not a vanity project — Beehive is the right partner.",
+    name: "Margo Ovsiienko",
+    title: "Head of Marketing",
+    company: "ScraperAPI.com",
+    companyHref: "https://scraperapi.com",
+    image: "/images/endorsements/margo-ovsiienko.jpg",
+    initials: "MO",
+    color: "#0EA5E9",
+  },
+];
+---
+
+<section class="endorsements section" id="endorsements">
+  <div class="container">
+    <!-- Section header -->
+    <div class="section-header">
+      <span class="section-eyebrow">What Authors & Colleagues Say</span>
+      <h2 class="section-heading">Endorsements</h2>
+    </div>
+
+    <!-- Cards -->
+    <div class="endorsements-grid">
+      {testimonials.map(t => (
+        <div class="testimonial-card card">
+          <!-- Big decorative quote mark -->
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+
+          <blockquote class="testimonial-quote">
+            <p>{t.quote}</p>
+          </blockquote>
+
+          <div class="testimonial-author">
+            {t.image ? (
+              <img
+                src={t.image}
+                alt={t.name}
+                class="testimonial-avatar testimonial-avatar--photo"
+                loading="lazy"
+                width="44"
+                height="44"
+              />
+            ) : (
+              <div
+                class="testimonial-avatar"
+                style={`background: ${t.color};`}
+                aria-hidden="true"
+              >
+                {t.initials}
+              </div>
+            )}
+            <div class="testimonial-meta">
+              <span class="testimonial-name">{t.name}</span>
+              <span class="testimonial-role">
+                {t.title} &mdash; <a href={t.companyHref} class="testimonial-company-link" target="_blank" rel="noopener">{t.company}</a>
+              </span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .endorsements {
+    background: #FDF8F0;
+  }
+
+  /* Section header */
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-eyebrow {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #E8A317;
+    margin-bottom: 0.625rem;
+  }
+
+  .section-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.875rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0;
+  }
+
+  /* Grid */
+  .endorsements-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* Card */
+  .testimonial-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: #fff;
+    padding: 2.5rem;
+  }
+
+  /* Big quote mark */
+  .quote-mark {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.75rem;
+    font-family: Georgia, serif;
+    font-size: 5rem;
+    line-height: 1;
+    color: #E8A317;
+    opacity: 0.2;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* Quote text */
+  .testimonial-quote {
+    margin: 0;
+    flex: 1;
+  }
+
+  .testimonial-quote p {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: #374151;
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* Author row */
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #F3F4F6;
+  }
+
+  .testimonial-avatar {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .testimonial-avatar--photo {
+    object-fit: cover;
+    display: block;
+  }
+
+  .testimonial-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .testimonial-name {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: #1A1A1A;
+  }
+
+  .testimonial-role {
+    font-size: 0.8125rem;
+    color: #6B7280;
+  }
+
+  .testimonial-company-link {
+    color: #E8A317;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .testimonial-company-link:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .endorsements-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

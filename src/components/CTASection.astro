@@ -1,0 +1,183 @@
+---
+const badges = [
+  { icon: '🗓️', label: 'Limited availability' },
+  { icon: '💬', label: 'No obligation discovery call' },
+  { icon: '📈', label: 'ROI-focused approach' },
+];
+---
+
+<section class="cta-section" id="cta">
+  <!-- Decorative dot pattern -->
+  <div class="cta-dots cta-dots--left" aria-hidden="true"></div>
+  <div class="cta-dots cta-dots--right" aria-hidden="true"></div>
+
+  <div class="container cta-inner">
+    <div class="cta-content">
+      <span class="cta-eyebrow">Ready to Grow?</span>
+      <h2 class="cta-heading">
+        Let's Build Your<br />
+        <em class="cta-heading-accent">Book Marketing Engine</em>
+      </h2>
+      <p class="cta-sub">
+        Whether you're pre-launch or post-launch, there's a clear next step. Book a free
+        discovery call — we'll map out exactly where to focus first.
+      </p>
+
+      <div class="cta-buttons">
+        <a href="/contact" class="btn-primary cta-btn-primary">
+          Book a Discovery Call <span aria-hidden="true">→</span>
+        </a>
+        <a href="/services" class="btn-outline-light cta-btn-secondary">
+          See the Program
+        </a>
+      </div>
+
+      <!-- Trust badges -->
+      <div class="cta-badges">
+        {badges.map(b => (
+          <div class="cta-badge">
+            <span class="cta-badge-dot" aria-hidden="true"></span>
+            <span class="cta-badge-icon" aria-hidden="true">{b.icon}</span>
+            <span>{b.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    position: relative;
+    overflow: hidden;
+    background: #1A1A1A;
+    padding: 6rem 0;
+    text-align: center;
+  }
+
+  /* Dot grids */
+  .cta-dots {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    background-image: radial-gradient(circle, #E8A317 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+    opacity: 0.12;
+    pointer-events: none;
+  }
+
+  .cta-dots--left  { top: -60px; left: -60px; }
+  .cta-dots--right { bottom: -60px; right: -60px; }
+
+  .cta-inner {
+    position: relative;
+  }
+
+  .cta-content {
+    max-width: 680px;
+    margin-inline: auto;
+  }
+
+  /* Eyebrow */
+  .cta-eyebrow {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #E8A317;
+    background: rgba(232,163,23,0.1);
+    padding: 0.375rem 0.875rem;
+    border-radius: 9999px;
+    margin-bottom: 1.25rem;
+  }
+
+  /* Heading */
+  .cta-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin: 0 0 1.25rem;
+    letter-spacing: -0.02em;
+  }
+
+  .cta-heading-accent {
+    font-style: italic;
+    color: #E8A317;
+  }
+
+  .cta-sub {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: #9CA3AF;
+    margin: 0 0 2.25rem;
+  }
+
+  /* Buttons */
+  .cta-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.875rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .cta-btn-primary {
+    font-size: 1rem;
+    padding: 0.875rem 2rem;
+  }
+
+  .cta-btn-secondary {
+    font-size: 1rem;
+    padding: 0.875rem 2rem;
+  }
+
+  /* Trust badges */
+  .cta-badges {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 2rem;
+  }
+
+  .cta-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #6B7280;
+  }
+
+  .cta-badge-dot {
+    width: 6px;
+    height: 6px;
+    background: #E8A317;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .cta-badge-icon {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 540px) {
+    .cta-buttons {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .cta-btn-primary,
+    .cta-btn-secondary {
+      justify-content: center;
+    }
+
+    .cta-badges {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+</style>

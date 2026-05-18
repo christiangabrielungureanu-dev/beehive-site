@@ -1,0 +1,258 @@
+---
+interface Props {
+  source: string;
+  userGroup?: string;
+  buttonText?: string;
+  placeholder?: string;
+  showName?: boolean;
+  showBookTitle?: boolean;
+  dark?: boolean;
+}
+
+const {
+  source,
+  userGroup = 'subscribers',
+  buttonText = 'Notify Me →',
+  placeholder = 'your@email.com',
+  showName = false,
+  showBookTitle = false,
+  dark = false,
+} = Astro.props;
+
+const formId = `signup-${source.replace(/[^a-z0-9]/gi, '-')}`;
+---
+
+<div class={`signup-wrap ${dark ? 'signup-wrap--dark' : ''}`} id={formId}>
+  <form class="signup-form" data-source={source} data-usergroup={userGroup}>
+    {showName && (
+      <input
+        type="text"
+        name="firstName"
+        placeholder="Your first name"
+        class="signup-input"
+        autocomplete="given-name"
+      />
+    )}
+    {showBookTitle && (
+      <input
+        type="text"
+        name="bookTitle"
+        placeholder="Your book title (optional)"
+        class="signup-input"
+      />
+    )}
+    <div class="signup-row">
+      <input
+        type="email"
+        name="email"
+        placeholder={placeholder}
+        required
+        class="signup-input signup-input--email"
+        autocomplete="email"
+      />
+      <button type="submit" class="signup-btn">
+        <span class="signup-btn-text">{buttonText}</span>
+        <span class="signup-btn-loading" aria-hidden="true">...</span>
+      </button>
+    </div>
+  </form>
+
+  <div class="signup-success" aria-live="polite" hidden>
+    <span class="signup-success-icon">✓</span>
+    <span class="signup-success-text">You're in! We'll let you know about the next episode.</span>
+  </div>
+
+  <div class="signup-error" aria-live="polite" hidden>
+    <span class="signup-error-text">Something went wrong. Please try again.</span>
+  </div>
+</div>
+
+<style>
+  .signup-wrap {
+    width: 100%;
+  }
+
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    width: 100%;
+  }
+
+  .signup-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .signup-input {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: #1A1A1A;
+    background: #fff;
+    border: 1.5px solid #E5E7EB;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    transition: border-color 0.15s;
+  }
+
+  .signup-input:focus {
+    outline: none;
+    border-color: #E8A317;
+  }
+
+  .signup-input--email {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .signup-wrap--dark .signup-input {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+
+  .signup-wrap--dark .signup-input::placeholder {
+    color: rgba(255,255,255,0.4);
+  }
+
+  .signup-wrap--dark .signup-input:focus {
+    border-color: #E8A317;
+  }
+
+  .signup-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: #E8A317;
+    color: #fff;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .signup-btn:hover {
+    background: #D4920F;
+  }
+
+  .signup-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .signup-btn-loading {
+    display: none;
+    letter-spacing: 0.1em;
+  }
+
+  .signup-btn.is-loading .signup-btn-text { display: none; }
+  .signup-btn.is-loading .signup-btn-loading { display: inline; }
+
+  /* Success */
+  .signup-success {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1rem;
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+  }
+
+  .signup-success-icon {
+    color: #22C55E;
+    font-weight: 700;
+    font-size: 1.125rem;
+  }
+
+  .signup-success-text {
+    color: #15803D;
+  }
+
+  .signup-wrap--dark .signup-success-text {
+    color: #86EFAC;
+  }
+
+  /* Error */
+  .signup-error {
+    padding: 0.75rem 1rem;
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: 0.5rem;
+  }
+
+  .signup-error-text {
+    font-size: 0.875rem;
+    color: #DC2626;
+  }
+
+  .signup-wrap--dark .signup-error-text {
+    color: #FCA5A5;
+  }
+
+  @media (max-width: 480px) {
+    .signup-row {
+      flex-direction: column;
+    }
+
+    .signup-btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.signup-form').forEach(form => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const f = e.currentTarget as HTMLFormElement;
+      const wrap = f.closest('.signup-wrap') as HTMLElement;
+      const btn = f.querySelector('.signup-btn') as HTMLButtonElement;
+      const successEl = wrap.querySelector('.signup-success') as HTMLElement;
+      const errorEl = wrap.querySelector('.signup-error') as HTMLElement;
+
+      btn.disabled = true;
+      btn.classList.add('is-loading');
+      successEl.hidden = true;
+      errorEl.hidden = true;
+
+      const payload: Record<string, string> = {
+        source: f.dataset.source || 'website',
+        userGroup: f.dataset.usergroup || 'subscribers',
+      };
+
+      new FormData(f).forEach((val, key) => {
+        payload[key] = val.toString();
+      });
+
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        if (res.ok) {
+          f.hidden = true;
+          successEl.hidden = false;
+        } else {
+          errorEl.hidden = false;
+          btn.disabled = false;
+          btn.classList.remove('is-loading');
+        }
+      } catch {
+        errorEl.hidden = false;
+        btn.disabled = false;
+        btn.classList.remove('is-loading');
+      }
+    });
+  });
+</script>

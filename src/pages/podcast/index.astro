@@ -1,0 +1,517 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SignupForm from '../../components/SignupForm.astro';
+---
+
+<BaseLayout
+  title="The Hive Mind Podcast — Book Marketing for Founders"
+  description="Conversations with authors, marketers, and operators on turning a book into a business asset — pipeline, deals, and paid stages. Subscribe for episode one."
+>
+  <!-- Hero -->
+  <section class="podcast-hero">
+    <div class="container podcast-hero-inner">
+      <div class="podcast-hero-content">
+        <span class="podcast-badge">
+          <span class="podcast-badge-dot" aria-hidden="true"></span>
+          Coming Soon
+        </span>
+        <h1 class="podcast-hero-heading">
+          The Hive Mind Podcast
+        </h1>
+        <p class="podcast-hero-sub">
+          Real conversations about turning a book into a business asset. Authors, marketers, and
+          operators share what's working — from pre-launch positioning to lead-gen, deal velocity,
+          and the keynote circuit.
+        </p>
+
+        <div class="podcast-signup-wrap">
+          <p class="podcast-signup-label">Be the first to know when we launch:</p>
+          <SignupForm
+            source="podcast-page"
+            userGroup="podcast-waitlist"
+            buttonText="Notify Me →"
+            placeholder="your@email.com"
+            dark={true}
+          />
+          <p class="podcast-signup-note">No spam. Just new episodes — directly to your inbox.</p>
+        </div>
+      </div>
+
+      <div class="podcast-hero-visual" aria-hidden="true">
+        <!-- Animated waveform card -->
+        <div class="podcast-player-mock">
+          <div class="podcast-player-header">
+            <span style="display:inline-flex;align-items:center;background:rgba(232,163,23,0.18);border:1px solid rgba(232,163,23,0.35);border-radius:6px;padding:4px 8px;">
+              <img
+                src="/images/logo-nav.png"
+                srcset="/images/logo-nav.png 1x, /images/logo-nav@2x.png 2x"
+                alt="Beehive Agency"
+                width="80"
+                height="24"
+                style="display:block;height:24px;width:auto;"
+              />
+            </span>
+            <span class="podcast-player-episode">Coming Soon</span>
+          </div>
+          <div class="podcast-waveform">
+            {Array.from({ length: 24 }).map((_, i) => (
+              <span
+                class="podcast-bar"
+                style={`height: ${18 + Math.abs(Math.sin(i * 0.7) * 44)}px; animation-delay: ${i * 0.06}s`}
+              ></span>
+            ))}
+          </div>
+          <div class="podcast-player-footer">
+            <span class="podcast-player-title">Episode 1 — Coming Soon</span>
+          </div>
+        </div>
+
+        <!-- Platform pills -->
+        <div class="podcast-platforms">
+          {['🎙️ Spotify', '▶️ YouTube', '🎧 Apple Podcasts'].map(p => (
+            <span class="podcast-platform">{p}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About the show -->
+  <section class="section podcast-about">
+    <div class="container">
+      <div class="podcast-about-header">
+        <span class="eyebrow">About the Show</span>
+        <h2 class="podcast-about-heading">What to Expect</h2>
+      </div>
+      <div class="podcast-about-grid">
+        {[
+          { icon: '🎯', title: 'No fluff, only tactics', desc: 'Every episode is built around one question: what actually works? Guests share real numbers, real campaigns, and real lessons.' },
+          { icon: '📚', title: 'For business-minded authors', desc: 'Founders, consultants, and experts — self-published or traditional, debut or established — who want their book to drive leads, close deals, and book stages.' },
+          { icon: '🔁', title: 'Frameworks that compound', desc: 'Funnel, attribution, and conversion thinking from SaaS, applied to books and the businesses behind them.' },
+          { icon: '🤝', title: 'Guests who\'ve done it', desc: 'Not theorists. Authors, marketers, and operators who have turned books into pipeline, speaking deals, and premium clients.' },
+        ].map(item => (
+          <div class="podcast-about-card">
+            <span class="podcast-about-icon">{item.icon}</span>
+            <h3 class="podcast-about-title">{item.title}</h3>
+            <p class="podcast-about-desc">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Topics we'll cover -->
+  <section class="section podcast-topics">
+    <div class="container podcast-topics-inner">
+      <div>
+        <span class="eyebrow">Topics</span>
+        <h2 class="podcast-topics-heading">What We'll Cover</h2>
+        <ul class="podcast-topic-list">
+          {[
+            'Turning a book into a lead-gen engine',
+            'Funnel and attribution for authors — what actually drives pipeline',
+            'Speaking fees: turning the book into the keynote',
+            'Shortening the sales cycle with the book as your first touch',
+            'Email sequences that convert readers into clients',
+            'Positioning a book for business buyers, not just readers',
+            'Podcast guesting as a B2B distribution channel',
+            'Building an author brand that compounds into the business',
+          ].map(t => (
+            <li class="podcast-topic-item">
+              <span class="podcast-topic-dot" aria-hidden="true"></span>
+              {t}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="podcast-host-card">
+        <div class="podcast-host-photo">
+          <img src="/cristian-pic.jpg" alt="Cristian Ungureanu, host of The Hive Mind Podcast" class="podcast-host-img" />
+        </div>
+        <div class="podcast-host-info">
+          <span class="podcast-host-label">Your Host</span>
+          <span class="podcast-host-name">Cristian Ungureanu</span>
+          <span class="podcast-host-title">Founder, Beehive Book Marketing</span>
+          <p class="podcast-host-bio">
+            10+ years in growth marketing. $5M+ ARR generated. Now bringing tech-grade
+            strategy to the world of books.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom signup -->
+  <section class="podcast-bottom-cta">
+    <div class="container podcast-bottom-inner">
+      <h2 class="podcast-bottom-heading">
+        Don't miss the first episode.
+      </h2>
+      <p class="podcast-bottom-sub">Sign up and we'll email you the moment it goes live.</p>
+      <div class="podcast-bottom-form">
+        <SignupForm
+          source="podcast-page-bottom"
+          userGroup="podcast-waitlist"
+          buttonText="Notify Me →"
+          placeholder="your@email.com"
+          dark={true}
+        />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #E8A317;
+    margin-bottom: 0.625rem;
+  }
+
+  /* Hero */
+  .podcast-hero {
+    background: #1A1A1A;
+    padding: 5rem 0;
+  }
+
+  .podcast-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .podcast-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #E8A317;
+    background: rgba(232,163,23,0.1);
+    border: 1px solid rgba(232,163,23,0.2);
+    padding: 0.375rem 0.875rem;
+    border-radius: 9999px;
+    margin-bottom: 1.25rem;
+  }
+
+  .podcast-badge-dot {
+    width: 6px;
+    height: 6px;
+    background: #E8A317;
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: blink 2s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .podcast-hero-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(2.25rem, 4vw, 3.25rem);
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 1.25rem;
+    line-height: 1.15;
+  }
+
+  .podcast-hero-sub {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: #9CA3AF;
+    margin: 0 0 2rem;
+  }
+
+  .podcast-signup-wrap {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+
+  .podcast-signup-label {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: #E5E7EB;
+    margin: 0 0 0.875rem;
+  }
+
+  .podcast-signup-note {
+    font-size: 0.75rem;
+    color: #6B7280;
+    margin: 0.625rem 0 0;
+  }
+
+  /* Player mock */
+  .podcast-hero-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  .podcast-player-mock {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 1.25rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .podcast-player-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .podcast-player-episode {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #E8A317;
+    background: rgba(232,163,23,0.1);
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+  }
+
+  .podcast-waveform {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    height: 60px;
+  }
+
+  .podcast-bar {
+    display: block;
+    width: 4px;
+    background: #E8A317;
+    border-radius: 2px;
+    opacity: 0.6;
+    animation: wave 1.3s ease-in-out infinite alternate;
+  }
+
+  @keyframes wave {
+    0% { transform: scaleY(0.3); opacity: 0.4; }
+    100% { transform: scaleY(1); opacity: 0.85; }
+  }
+
+  .podcast-player-footer { }
+
+  .podcast-player-title {
+    font-family: var(--font-heading);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #9CA3AF;
+  }
+
+  .podcast-platforms {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .podcast-platform {
+    font-size: 0.8125rem;
+    color: #6B7280;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 9999px;
+    padding: 0.3rem 0.75rem;
+  }
+
+  /* About */
+  .podcast-about { background: #fff; }
+
+  .podcast-about-header { text-align: center; margin-bottom: 3rem; }
+
+  .podcast-about-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.875rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0;
+  }
+
+  .podcast-about-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+
+  .podcast-about-card {
+    padding: 1.5rem;
+    background: #FDF8F0;
+    border: 1px solid rgba(232,163,23,0.15);
+    border-radius: 1rem;
+  }
+
+  .podcast-about-icon { font-size: 1.75rem; display: block; margin-bottom: 0.875rem; }
+
+  .podcast-about-title {
+    font-family: var(--font-heading);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 0.5rem;
+  }
+
+  .podcast-about-desc {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #4B5563;
+    margin: 0;
+  }
+
+  /* Topics */
+  .podcast-topics { background: #FDF8F0; }
+
+  .podcast-topics-inner {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .podcast-topics-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.625rem, 2.5vw, 2.125rem);
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 1.5rem;
+  }
+
+  .podcast-topic-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .podcast-topic-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 0.9375rem;
+    color: #374151;
+    padding: 0.625rem 0;
+    border-bottom: 1px solid #E5E7EB;
+  }
+
+  .podcast-topic-dot {
+    width: 7px;
+    height: 7px;
+    background: #E8A317;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Host card */
+  .podcast-host-card {
+    background: #1A1A1A;
+    border-radius: 1.25rem;
+    overflow: hidden;
+  }
+
+  .podcast-host-photo { }
+
+  .podcast-host-placeholder {
+    aspect-ratio: 1;
+    background: linear-gradient(145deg, #E8A317, #D4920F);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .podcast-host-img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+  }
+
+  .podcast-host-info {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .podcast-host-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #E8A317;
+    text-transform: uppercase;
+  }
+
+  .podcast-host-name {
+    font-family: var(--font-script);
+    font-size: 1.5rem;
+    color: #fff;
+  }
+
+  .podcast-host-title {
+    font-size: 0.8125rem;
+    color: #9CA3AF;
+    margin-bottom: 0.5rem;
+  }
+
+  .podcast-host-bio {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #6B7280;
+    margin: 0;
+  }
+
+  /* Bottom CTA */
+  .podcast-bottom-cta {
+    background: #1A1A1A;
+    padding: 5rem 0;
+    text-align: center;
+  }
+
+  .podcast-bottom-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 0.75rem;
+  }
+
+  .podcast-bottom-sub { font-size: 1rem; color: #9CA3AF; margin: 0 0 2rem; }
+
+  .podcast-bottom-form { max-width: 480px; margin: 0 auto; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .podcast-about-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 960px) {
+    .podcast-hero-inner,
+    .podcast-topics-inner { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 540px) {
+    .podcast-about-grid { grid-template-columns: 1fr; }
+  }
+</style>

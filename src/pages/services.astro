@@ -1,0 +1,435 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTASection from '../components/CTASection.astro';
+---
+
+<BaseLayout
+  title="Services: Pre-Launch, Launch & Ongoing Growth — Beehive"
+  description="End-to-end book marketing for experts and founders: pre-launch positioning, coordinated launch, and ongoing growth — built to drive leads, shorter sales cycles, and speaking fees."
+>
+  <!-- Hero -->
+  <section class="services-hero section">
+    <div class="container services-hero-inner">
+      <span class="eyebrow">How We Work</span>
+      <h1 class="services-hero-heading">
+        One engagement.<br />
+        <em class="accent">From positioning to growth.</em>
+      </h1>
+      <p class="services-hero-sub">
+        An end-to-end marketing partnership across the life of your book — built to drive
+        measurable business outcomes, not vanity metrics. From the first positioning workshop
+        to long-term growth, we run it together, with a vetted partner network handling
+        writing, editing, design, and publishing.
+      </p>
+    </div>
+  </section>
+
+  <!-- Phase 1: Pre-Launch -->
+  <section class="section tier-section tier-section--light" id="pre-launch">
+    <div class="container tier-inner">
+      <div class="tier-content">
+        <span class="eyebrow">Phase 1</span>
+        <h2 class="tier-heading">Pre-Launch</h2>
+        <p class="tier-tagline">Positioning, audience, and funnel foundations.</p>
+        <p class="tier-body">
+          We define how the book sits in your market, build the audience it needs, and set up
+          the funnels and attribution that turn readers into real business outcomes. This is
+          where the highest-leverage work happens — usually 6–12 months before publication.
+        </p>
+
+        <h3 class="tier-includes-heading">What's included</h3>
+        <ul class="tier-list">
+          <li>Positioning and messaging workshop (the book's role in your business)</li>
+          <li>Target buyer profile and competitive analysis</li>
+          <li>Audience-building plan (LinkedIn, newsletter, network)</li>
+          <li>Email funnel architecture and lead-magnet design</li>
+          <li>Analytics and attribution setup</li>
+          <li>Pre-launch content calendar</li>
+          <li>Launch roadmap and 90-day timeline</li>
+        </ul>
+
+        <div class="tier-ideal">
+          <strong>What you'll have at the end:</strong> A clear positioning doc, a working funnel,
+          an instrumented attribution stack, and a launch plan ready to execute.
+        </div>
+
+        <a href="/contact" class="btn-primary" style="display:inline-flex;margin-top:1.5rem;">
+          Book a Discovery Call →
+        </a>
+      </div>
+      <div class="tier-visual tier-visual--diy" aria-hidden="true">
+        <span class="tier-icon">🧭</span>
+        <span class="tier-visual-label">Foundation</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Phase 2: Launch -->
+  <section class="section tier-section tier-section--warm" id="launch">
+    <div class="container tier-inner tier-inner--reverse">
+      <div class="tier-visual tier-visual--consulting" aria-hidden="true">
+        <span class="tier-icon">🚀</span>
+        <span class="tier-visual-label">Go-to-Market</span>
+      </div>
+      <div class="tier-content">
+        <span class="eyebrow">Phase 2</span>
+        <h2 class="tier-heading">Launch</h2>
+        <p class="tier-tagline">A coordinated go-to-market moment.</p>
+        <p class="tier-body">
+          We run the launch like a SaaS product drop — pulling PR, media, paid, email, and your
+          partner network together to land the book with momentum. The goal isn't a one-week
+          spike; it's the moment that converts the audience you built into pipeline.
+        </p>
+
+        <h3 class="tier-includes-heading">What's included</h3>
+        <ul class="tier-list">
+          <li>Launch campaign management (multi-channel coordination)</li>
+          <li>Webinar and live event production</li>
+          <li>Podcast guesting and media outreach (B2B distribution)</li>
+          <li>Paid ads strategy and setup (LinkedIn, Meta, Google)</li>
+          <li>Email launch sequences and partner mailings</li>
+          <li>Landing pages and conversion optimization</li>
+          <li>Partner coordination (writing, editing, design, publishing)</li>
+        </ul>
+
+        <div class="tier-ideal">
+          <strong>What you'll have at the end:</strong> A launch that drove signups, qualified
+          meetings, and speaking inquiries — not just copies sold.
+        </div>
+
+        <a href="/contact" class="btn-primary" style="display:inline-flex;margin-top:1.5rem;">
+          Book a Discovery Call →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Phase 3: Ongoing Growth -->
+  <section class="section tier-section tier-section--dark" id="ongoing-growth">
+    <div class="container tier-inner">
+      <div class="tier-content tier-content--dark">
+        <span class="eyebrow eyebrow--amber">Phase 3</span>
+        <h2 class="tier-heading tier-heading--light">Ongoing Growth</h2>
+        <p class="tier-tagline tier-tagline--amber">Compounding the book into business results.</p>
+        <p class="tier-body tier-body--light">
+          Launch week is just the start. We keep the engine running — repurposing content,
+          growing the list, and turning the book into compounding pipeline, faster deal
+          cycles, and a real speaking calendar. This is where the work compounds.
+        </p>
+
+        <h3 class="tier-includes-heading tier-includes-heading--light">What's included</h3>
+        <ul class="tier-list tier-list--light">
+          <li>Content repurposing (blog, shorts, podcast)</li>
+          <li>Ongoing email marketing and nurture sequences</li>
+          <li>Speaker and keynote pipeline support</li>
+          <li>Lead-gen and outreach strategy</li>
+          <li>Funnel optimization and conversion testing</li>
+          <li>Monthly strategy calls and performance reports</li>
+        </ul>
+
+        <div class="tier-ideal tier-ideal--dark">
+          <strong>What you'll have at the end:</strong> A book that compounds — driving leads,
+          shortening sales cycles, and feeding a speaking pipeline you can actually ramp.
+        </div>
+
+        <a href="/contact" class="btn-primary" style="display:inline-flex;margin-top:1.5rem;">
+          Book a Discovery Call →
+        </a>
+      </div>
+
+      <div class="tier-visual tier-visual--dfy" aria-hidden="true">
+        <span class="tier-icon">📈</span>
+        <span class="tier-visual-label tier-visual-label--light">Compounding</span>
+        <div class="dfy-steps">
+          {['Repurpose', 'Nurture', 'Speak', 'Convert'].map((step, i) => (
+            <div class="dfy-step">
+              <span class="dfy-step-num">{i + 1}</span>
+              <span class="dfy-step-label">{step}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section services-faq">
+    <div class="container">
+      <div class="faq-header">
+        <span class="eyebrow">Common Questions</span>
+        <h2 class="faq-heading">Frequently Asked</h2>
+      </div>
+      <div class="faq-grid">
+        {[
+          {
+            q: 'Do I need a finished book to work with you?',
+            a: 'No — in fact, the earlier the better. Pre-launch positioning and audience building are some of the highest-leverage activities in book marketing. We can start working with you 6–12 months before your publication date.',
+          },
+          {
+            q: 'Do you work with self-published and traditionally published authors?',
+            a: 'Both. The core marketing principles are the same. For traditionally published authors, we work alongside your publisher\'s marketing team and focus on the channels they typically underinvest in (email, community, podcast guesting).',
+          },
+          {
+            q: 'What does the discovery call involve?',
+            a: 'It\'s a free, 30-minute conversation. We\'ll talk about your book, your goals, and where you are in the process. I\'ll tell you honestly whether this engagement is the right fit for your situation — or whether you should wait.',
+          },
+          {
+            q: 'Can you guarantee a certain number of leads, deals, or speaking gigs?',
+            a: 'No — anyone who claims a number without seeing your funnel is not being straight with you. What we can guarantee is a disciplined, data-informed program with clear KPIs (leads, qualified meetings, speaking pipeline), regular reporting, and an honest read on what\'s working.',
+          },
+        ].map(item => (
+          <div class="faq-item">
+            <h3 class="faq-q">{item.q}</h3>
+            <p class="faq-a">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #E8A317;
+    margin-bottom: 0.625rem;
+  }
+
+  .eyebrow--amber { color: #E8A317; }
+  .accent { font-style: italic; color: #E8A317; }
+
+  /* Hero */
+  .services-hero { background: linear-gradient(135deg, #FFFDF7 0%, #FFF8E7 100%); text-align: center; }
+
+  .services-hero-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(2.25rem, 4vw, 3.5rem);
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0.5rem auto 1.25rem;
+    line-height: 1.15;
+  }
+
+  .services-hero-sub {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: #4B5563;
+    max-width: 52ch;
+    margin: 0 auto;
+  }
+
+  /* Tier sections */
+  .tier-section--light { background: #fff; }
+  .tier-section--warm { background: #FDF8F0; }
+  .tier-section--dark { background: #1A1A1A; }
+
+  .tier-inner {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .tier-inner--reverse { grid-template-columns: 380px 1fr; }
+
+  /* Tier content */
+  .tier-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 0.25rem;
+  }
+
+  .tier-heading--light { color: #fff; }
+
+  .tier-tagline {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #E8A317;
+    margin: 0 0 1rem;
+  }
+
+  .tier-tagline--amber { color: #E8A317; }
+
+  .tier-body {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: #374151;
+    margin: 0 0 1.5rem;
+  }
+
+  .tier-body--light { color: #D1D5DB; }
+
+  .tier-includes-heading {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tier-includes-heading--light { color: #9CA3AF; }
+
+  .tier-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tier-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    font-size: 0.9375rem;
+    color: #374151;
+  }
+
+  .tier-list li::before {
+    content: '✓';
+    color: #E8A317;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 0.05em;
+  }
+
+  .tier-list--light li { color: #D1D5DB; }
+
+  .tier-ideal {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #6B7280;
+    background: #F9FAFB;
+    border-left: 3px solid #E8A317;
+    border-radius: 0 0.5rem 0.5rem 0;
+    padding: 0.875rem 1rem;
+  }
+
+  .tier-ideal strong { color: #1A1A1A; }
+
+  .tier-ideal--dark {
+    background: rgba(255,255,255,0.05);
+    color: #9CA3AF;
+  }
+
+  .tier-ideal--dark strong { color: #E5E7EB; }
+
+  /* Visuals */
+  .tier-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    border-radius: 1.5rem;
+    padding: 3rem 2rem;
+    min-height: 280px;
+  }
+
+  .tier-visual--diy { background: #FFF8E7; border: 2px dashed rgba(232,163,23,0.3); }
+  .tier-visual--consulting { background: #fff; border: 1px solid #E5E7EB; box-shadow: 0 4px 24px rgba(0,0,0,0.05); }
+  .tier-visual--dfy { border: 1px solid rgba(255,255,255,0.1); flex-direction: column; gap: 1.5rem; }
+
+  .tier-icon { font-size: 3.5rem; }
+  .tier-visual-label { font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #1A1A1A; }
+  .tier-visual-label--light { color: #9CA3AF; }
+
+  /* DFY steps */
+  .dfy-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    width: 100%;
+    max-width: 220px;
+  }
+
+  .dfy-step {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 1rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 0.5rem;
+  }
+
+  .dfy-step-num {
+    width: 1.5rem;
+    height: 1.5rem;
+    background: #E8A317;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .dfy-step-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #E5E7EB;
+  }
+
+  /* FAQ */
+  .services-faq { background: #fff; }
+
+  .faq-header { text-align: center; margin-bottom: 3rem; }
+
+  .faq-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.875rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .faq-item {
+    background: #FDF8F0;
+    border: 1px solid rgba(232,163,23,0.15);
+    border-radius: 1rem;
+    padding: 1.75rem;
+  }
+
+  .faq-q {
+    font-family: var(--font-heading);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 0.75rem;
+  }
+
+  .faq-a {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: #4B5563;
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 960px) {
+    .tier-inner,
+    .tier-inner--reverse { grid-template-columns: 1fr; gap: 2.5rem; }
+    .tier-inner--reverse .tier-visual { order: -1; }
+    .faq-grid { grid-template-columns: 1fr; }
+  }
+</style>

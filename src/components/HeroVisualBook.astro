@@ -1,0 +1,287 @@
+---
+// Option 3 — CSS 3D book mockup with floating badges
+---
+
+<div class="book-wrap" aria-hidden="true">
+  <!-- 3D Book -->
+  <div class="book-scene">
+    <div class="book">
+      <!-- Front cover -->
+      <div class="book-front">
+        <div class="book-cover-inner">
+          <div class="book-cover-top">
+            <span class="book-cover-eyebrow">The Author's Playbook</span>
+            <div class="book-cover-title">
+              <span class="book-cover-line1">Book Marketing</span>
+              <span class="book-cover-line2">That Works</span>
+            </div>
+          </div>
+          <div class="book-cover-rule"></div>
+          <div class="book-cover-bottom">
+            <span class="book-cover-author">Beehive Agency</span>
+            <span class="book-cover-hex">⬡</span>
+          </div>
+        </div>
+      </div>
+      <!-- Spine -->
+      <div class="book-spine">
+        <span class="book-spine-text">Book Marketing That Works · Beehive</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating badge: launch -->
+  <div class="book-badge book-badge--launch">
+    <span class="book-badge-icon">🚀</span>
+    <div>
+      <div class="book-badge-label">Launch week</div>
+      <div class="book-badge-value">+340% sales</div>
+    </div>
+  </div>
+
+  <!-- Floating badge: subscribers -->
+  <div class="book-badge book-badge--subs">
+    <span class="book-badge-icon">📧</span>
+    <div>
+      <div class="book-badge-label">New subscribers</div>
+      <div class="book-badge-value">+847 this month</div>
+    </div>
+  </div>
+
+  <!-- Available pill -->
+  <div class="book-avail">
+    <span class="book-avail-dot"></span>
+    Available for new clients
+  </div>
+</div>
+
+<style>
+  .book-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    padding: 3rem 4rem 3rem 2rem;
+  }
+
+  .book-scene {
+    perspective: 1400px;
+  }
+
+  .book {
+    position: relative;
+    width: 210px;
+    height: 290px;
+    transform-style: preserve-3d;
+    transform: rotateY(-25deg) rotateX(3deg);
+    filter: drop-shadow(0 28px 40px rgba(0,0,0,0.18)) drop-shadow(0 8px 16px rgba(0,0,0,0.1));
+  }
+
+  /* ── Front cover ── */
+  .book-front {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, #E8A317 0%, #F0B429 40%, #D4920F 100%);
+    border-radius: 3px 8px 8px 3px;
+    transform: translateZ(15px);
+    overflow: hidden;
+  }
+
+  /* Subtle diagonal texture */
+  .book-front::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -55deg,
+      transparent,
+      transparent 6px,
+      rgba(255,255,255,0.06) 6px,
+      rgba(255,255,255,0.06) 7px
+    );
+  }
+
+  /* Dark stripe along left edge */
+  .book-front::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    width: 5px;
+    background: rgba(0,0,0,0.18);
+  }
+
+  .book-cover-inner {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    padding: 1.5rem 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .book-cover-eyebrow {
+    display: block;
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 0.625rem;
+  }
+
+  .book-cover-title {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .book-cover-line1 {
+    font-family: var(--font-heading);
+    font-size: 1.3125rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.15;
+  }
+
+  .book-cover-line2 {
+    font-family: var(--font-heading);
+    font-size: 1.3125rem;
+    font-weight: 700;
+    font-style: italic;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.15;
+  }
+
+  .book-cover-rule {
+    height: 1px;
+    background: rgba(255,255,255,0.35);
+    margin: 1rem 0;
+  }
+
+  .book-cover-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .book-cover-author {
+    font-family: var(--font-script);
+    font-size: 1rem;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .book-cover-hex {
+    font-size: 2rem;
+    color: rgba(255,255,255,0.3);
+    line-height: 1;
+  }
+
+  /* ── Spine ── */
+  .book-spine {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: -30px;
+    width: 30px;
+    background: linear-gradient(90deg, #B87D0E 0%, #C98D10 100%);
+    transform: rotateY(-90deg) translateZ(15px);
+    transform-origin: right center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .book-spine-text {
+    font-size: 0.45rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    white-space: nowrap;
+  }
+
+  /* ── Floating badges ── */
+  .book-badge {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 0.75rem;
+    padding: 0.625rem 0.875rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    white-space: nowrap;
+  }
+
+  .book-badge--launch {
+    top: 0.75rem;
+    right: 0.25rem;
+    animation: floatA 4s ease-in-out infinite;
+  }
+
+  .book-badge--subs {
+    bottom: 3rem;
+    left: 0.25rem;
+    animation: floatB 4.8s ease-in-out infinite;
+  }
+
+  @keyframes floatA {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  @keyframes floatB {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .book-badge-icon { font-size: 1rem; flex-shrink: 0; }
+
+  .book-badge-label {
+    font-size: 0.6875rem;
+    color: #9CA3AF;
+    font-weight: 500;
+  }
+
+  .book-badge-value {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #1A1A1A;
+  }
+
+  /* ── Available pill ── */
+  .book-avail {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.25rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 9999px;
+    padding: 0.375rem 0.875rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #374151;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  .book-avail-dot {
+    width: 7px;
+    height: 7px;
+    background: #22C55E;
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+</style>

@@ -1,0 +1,288 @@
+---
+import SignupForm from './SignupForm.astro';
+---
+
+<section class="podcast-signup section" id="podcast">
+  <div class="container podcast-inner">
+    <!-- Left: text content -->
+    <div class="podcast-content">
+      <span class="section-eyebrow">The Hive Mind</span>
+      <h2 class="podcast-heading">
+        Real Conversations About<br />
+        <em class="podcast-heading-accent">Books That Drive Business</em>
+      </h2>
+      <p class="podcast-body">
+        In-depth conversations with authors, marketers, and operators on turning a book into
+        qualified pipeline, faster sales conversations, and paid stages. No fluff. No vanity
+        metrics. Just what actually compounds.
+      </p>
+
+      <ul class="podcast-bullets">
+        <li>
+          <span class="podcast-bullet-dot" aria-hidden="true"></span>
+          Turning a book into a lead-gen engine
+        </li>
+        <li>
+          <span class="podcast-bullet-dot" aria-hidden="true"></span>
+          Funnel, attribution, and conversion thinking applied to authors
+        </li>
+        <li>
+          <span class="podcast-bullet-dot" aria-hidden="true"></span>
+          Speaking fees, premium offers, and sales cycles that close faster
+        </li>
+      </ul>
+
+      <!-- Signup -->
+      <div class="podcast-form-wrap">
+        <p class="podcast-form-label">Get notified when the first episode drops:</p>
+        <SignupForm
+          source="podcast-homepage"
+          userGroup="podcast-waitlist"
+          buttonText="Notify Me →"
+          placeholder="your@email.com"
+        />
+        <p class="podcast-form-note">No spam. Just new episodes.</p>
+      </div>
+    </div>
+
+    <!-- Right: visual -->
+    <div class="podcast-visual" aria-hidden="true">
+      <div class="podcast-card-main">
+        <div class="podcast-waveform">
+          {Array.from({ length: 20 }).map((_, i) => (
+            <span
+              class="podcast-bar"
+              style={`height: ${20 + Math.abs(Math.sin(i * 0.8) * 50)}px; animation-delay: ${i * 0.07}s`}
+            ></span>
+          ))}
+        </div>
+        <div class="podcast-card-meta">
+          <span class="podcast-logo-badge">
+            <img
+              src="/images/logo-nav.png"
+              srcset="/images/logo-nav.png 1x, /images/logo-nav@2x.png 2x"
+              alt="Beehive Agency"
+              class="podcast-card-logo"
+              width="80"
+              height="27"
+            />
+          </span>
+          <span class="podcast-card-label">Coming Soon</span>
+        </div>
+      </div>
+
+      <div class="podcast-platforms">
+        <span class="podcast-platforms-label">Coming to</span>
+        <div class="podcast-platform-icons">
+          <span class="podcast-platform">🎙️ Spotify</span>
+          <span class="podcast-platform">▶️ YouTube</span>
+          <span class="podcast-platform">🎧 Apple Podcasts</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .podcast-signup {
+    background: #FDF8F0;
+  }
+
+  .podcast-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 5rem;
+  }
+
+  /* Content */
+  .section-eyebrow {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #E8A317;
+    margin-bottom: 0.625rem;
+  }
+
+  .podcast-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.875rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 1rem;
+    line-height: 1.2;
+  }
+
+  .podcast-heading-accent {
+    font-style: italic;
+    color: #E8A317;
+  }
+
+  .podcast-body {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: #4B5563;
+    margin: 0 0 1.5rem;
+  }
+
+  .podcast-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .podcast-bullets li {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 0.9375rem;
+    color: #374151;
+  }
+
+  .podcast-bullet-dot {
+    width: 8px;
+    height: 8px;
+    background: #E8A317;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .podcast-form-wrap {
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+
+  .podcast-form-label {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: #1A1A1A;
+    margin: 0 0 0.75rem;
+  }
+
+  .podcast-form-note {
+    font-size: 0.75rem;
+    color: #9CA3AF;
+    margin: 0.625rem 0 0;
+  }
+
+  /* Visual */
+  .podcast-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .podcast-card-main {
+    width: 100%;
+    background: #1A1A1A;
+    border-radius: 1.25rem;
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+  }
+
+  .podcast-waveform {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    height: 64px;
+  }
+
+  .podcast-bar {
+    display: block;
+    width: 4px;
+    background: #E8A317;
+    border-radius: 2px;
+    opacity: 0.7;
+    animation: wave 1.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes wave {
+    0% { transform: scaleY(0.4); opacity: 0.5; }
+    100% { transform: scaleY(1); opacity: 0.9; }
+  }
+
+  .podcast-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .podcast-logo-badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(232, 163, 23, 0.18);
+    border: 1px solid rgba(232, 163, 23, 0.35);
+    border-radius: 6px;
+    padding: 4px 8px;
+  }
+
+  .podcast-card-logo {
+    height: 24px;
+    width: auto;
+    display: block;
+  }
+
+  .podcast-card-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #E8A317;
+    background: rgba(232,163,23,0.1);
+    padding: 0.3rem 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(232,163,23,0.3);
+  }
+
+  /* Platforms */
+  .podcast-platforms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .podcast-platforms-label {
+    font-size: 0.8125rem;
+    color: #9CA3AF;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+
+  .podcast-platform-icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .podcast-platform {
+    font-size: 0.8125rem;
+    color: #6B7280;
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 9999px;
+    padding: 0.3rem 0.75rem;
+  }
+
+  @media (max-width: 900px) {
+    .podcast-inner {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+</style>

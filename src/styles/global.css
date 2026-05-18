@@ -1,1 +1,134 @@
 @import "tailwindcss";
+/* Fonts are loaded via <link> in BaseLayout.astro for correct ordering */
+
+/* ─── Theme Tokens (Tailwind v4 CSS-first config) ────────────── */
+@theme {
+  /* Brand colors */
+  --color-honey:        #E8A317;
+  --color-honey-dark:   #D4920F;
+  --color-cream:        #FFF8E7;
+  --color-parchment:    #FDF8F0;
+  --color-charcoal:     #1A1A1A;
+  --color-muted:        #6B7280;
+  --color-border:       #E5E7EB;
+
+  /* Font families */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-script:  'Caveat', cursive;
+}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-family: var(--font-body);
+  color: #1A1A1A;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+}
+
+/* ─── Utility helpers ────────────────────────────────────────── */
+.container {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: #E8A317;
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+  border: 2px solid transparent;
+}
+
+.btn-primary:hover {
+  background: #D4920F;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: transparent;
+  color: #1A1A1A;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  border: 2px solid #1A1A1A;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s, transform 0.15s;
+}
+
+.btn-outline:hover {
+  border-color: #E8A317;
+  color: #E8A317;
+  transform: translateY(-1px);
+}
+
+.btn-outline-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: transparent;
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  border: 2px solid rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.15s;
+}
+
+.btn-outline-light:hover {
+  border-color: #E8A317;
+  color: #E8A317;
+  transform: translateY(-1px);
+}
+
+/* ─── Section spacing ────────────────────────────────────────── */
+.section {
+  padding: 5rem 0;
+}
+
+.section-sm {
+  padding: 3.5rem 0;
+}
+
+/* ─── Card base ──────────────────────────────────────────────── */
+.card {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}

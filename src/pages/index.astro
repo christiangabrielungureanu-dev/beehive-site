@@ -1,11 +1,21 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import MyStory from '../components/MyStory.astro';
+import Endorsements from '../components/Endorsements.astro';
+import ServiceTiers from '../components/ServiceTiers.astro';
+import PodcastSignup from '../components/PodcastSignup.astro';
+import CTASection from '../components/CTASection.astro';
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout
+  title="Book Marketing for Experts & Founders — Beehive"
+  description="Book marketing for founders, consultants, and experts. We market your book like a SaaS product — built to drive leads, faster deals, and paid stages."
+>
+  <Hero />
+  <MyStory />
+  <Endorsements />
+  <ServiceTiers />
+  <PodcastSignup />
+  <CTASection />
+</BaseLayout>

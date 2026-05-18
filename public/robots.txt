@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://beehivebookmarketing.com/sitemap-index.xml

@@ -1,0 +1,199 @@
+---
+const navLinks = [
+  { label: 'About', href: '/about' },
+  { label: 'Services', href: '/services' },
+  { label: 'Podcast', href: '/podcast' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="nav-wrapper">
+  <div class="container nav-inner">
+    <!-- Logo -->
+    <a href="/" class="nav-logo" aria-label="Beehive Book Marketing — Home">
+      <img
+        src="/images/logo-nav.png"
+        srcset="/images/logo-nav.png 1x, /images/logo-nav@2x.png 2x"
+        alt="Beehive Agency"
+        class="nav-logo-img"
+        width="120"
+        height="40"
+      />
+    </a>
+
+    <!-- Desktop links -->
+    <nav class="nav-links" aria-label="Main navigation">
+      {navLinks.map(link => (
+        <a
+          href={link.href}
+          class={`nav-link ${currentPath.startsWith(link.href) ? 'nav-link--active' : ''}`}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- CTA -->
+    <div class="nav-cta-wrap">
+      <a href="/contact" class="btn-primary nav-cta">
+        Book a Discovery Call <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button class="nav-hamburger" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <nav aria-label="Mobile navigation">
+      {navLinks.map(link => (
+        <a href={link.href} class="mobile-link">{link.label}</a>
+      ))}
+      <a href="/contact" class="btn-primary" style="margin-top:1rem;width:100%;justify-content:center;">
+        Book a Discovery Call →
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #E5E7EB;
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.5rem;
+    gap: 1.5rem;
+  }
+
+  /* Logo */
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .nav-logo-img {
+    height: 40px;
+    width: auto;
+    display: block;
+  }
+
+  /* Desktop nav links */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .nav-link {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: #1A1A1A;
+    text-decoration: none;
+    padding: 0.5rem 0.875rem;
+    border-radius: 0.5rem;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .nav-link:hover,
+  .nav-link--active {
+    color: #E8A317;
+    background: #FFF8E7;
+  }
+
+  .nav-cta-wrap {
+    flex-shrink: 0;
+  }
+
+  .nav-cta {
+    font-size: 0.875rem;
+    padding: 0.625rem 1.125rem;
+  }
+
+  /* Hamburger */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #1A1A1A;
+    border-radius: 2px;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+
+  /* Mobile menu */
+  .mobile-menu {
+    display: none;
+    padding: 1rem 1.5rem 1.5rem;
+    background: #fff;
+    border-top: 1px solid #E5E7EB;
+  }
+
+  .mobile-menu.is-open {
+    display: block;
+  }
+
+  .mobile-link {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1A1A1A;
+    text-decoration: none;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #F3F4F6;
+  }
+
+  .mobile-link:hover {
+    color: #E8A317;
+  }
+
+  @media (max-width: 768px) {
+    .nav-links,
+    .nav-cta-wrap {
+      display: none;
+    }
+
+    .nav-hamburger {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = menu?.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    menu?.setAttribute('aria-hidden', String(!isOpen));
+  });
+</script>

@@ -1,0 +1,219 @@
+---
+const phases = [
+  {
+    icon: '🧭',
+    name: 'Pre-Launch',
+    tagline: 'Positioning, audience, and funnel foundations',
+    description:
+      'We define how the book sits in your market, build the audience it needs, and set up the funnels and attribution that turn readers into real business outcomes.',
+    features: [
+      'Positioning and messaging',
+      'Audience-building plan (LinkedIn, newsletter, network)',
+      'Email funnel architecture',
+      'Analytics and attribution setup',
+      'Launch roadmap and timeline',
+    ],
+  },
+  {
+    icon: '🚀',
+    name: 'Launch',
+    tagline: 'A coordinated go-to-market moment',
+    description:
+      'We run the launch like a SaaS product drop — pulling PR, media, paid, email, and your partner network together to land the book with momentum.',
+    features: [
+      'Launch campaign management',
+      'Webinar and event production',
+      'Podcast and media outreach',
+      'Paid ads strategy and setup',
+      'Partner coordination (writing, editing, design, publishing)',
+    ],
+  },
+  {
+    icon: '📈',
+    name: 'Ongoing Growth',
+    tagline: 'Compounding the book into business results',
+    description:
+      'Launch week is just the start. We keep the engine running — repurposing content, growing the list, and turning the book into compounding pipeline, faster deal cycles, and a steady speaking calendar.',
+    features: [
+      'Content repurposing (blog, shorts, podcast)',
+      'Ongoing email marketing',
+      'Speaker and keynote pipeline support',
+      'Enterprise outreach strategy',
+      'Monthly reporting and optimization',
+    ],
+  },
+];
+---
+
+<section class="services section" id="services">
+  <div class="container">
+    <!-- Section header -->
+    <div class="services-header">
+      <span class="section-eyebrow">What's Included</span>
+      <h2 class="services-heading">One engagement. From positioning to ongoing growth.</h2>
+      <p class="services-sub">
+        An end-to-end marketing partnership across the life of your book — with a vetted partner network handling writing, editing, design, and publishing.
+      </p>
+    </div>
+
+    <!-- Phases grid -->
+    <div class="services-grid">
+      {phases.map(phase => (
+        <div class="service-card card">
+          <div class="service-icon" aria-hidden="true">{phase.icon}</div>
+          <h3 class="service-name">{phase.name}</h3>
+          <p class="service-tagline">{phase.tagline}</p>
+          <p class="service-desc">{phase.description}</p>
+
+          <ul class="service-features">
+            {phase.features.map(f => (
+              <li class="service-feature">
+                <span class="service-feature-check" aria-hidden="true">✓</span>
+                {f}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <!-- Footer CTA -->
+    <div class="services-footer">
+      <a href="/contact" class="btn-primary">
+        Book a Discovery Call <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    background: #fff;
+  }
+
+  /* Header */
+  .services-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  .section-eyebrow {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #E8A317;
+    margin-bottom: 0.625rem;
+  }
+
+  .services-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.875rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 0.75rem;
+    line-height: 1.2;
+  }
+
+  .services-sub {
+    font-size: 1.0625rem;
+    color: #6B7280;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Grid */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+
+  /* Card */
+  .service-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  /* Content */
+  .service-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .service-name {
+    font-family: var(--font-heading);
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 0.25rem;
+  }
+
+  .service-tagline {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #E8A317;
+    margin: 0 0 0.875rem;
+  }
+
+  .service-desc {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: #4B5563;
+    margin: 0 0 1.5rem;
+  }
+
+  /* Features */
+  .service-features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .service-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #374151;
+  }
+
+  .service-feature-check {
+    color: #E8A317;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 0.05em;
+  }
+
+  /* Footer */
+  .services-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 960px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+      max-width: 480px;
+      margin-inline: auto;
+    }
+  }
+
+  @media (min-width: 640px) and (max-width: 960px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 100%;
+    }
+  }
+</style>

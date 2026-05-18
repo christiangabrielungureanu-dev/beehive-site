@@ -1,0 +1,275 @@
+---
+---
+
+<section class="story section" id="story">
+  <div class="container story-inner">
+    <!-- Photo side -->
+    <div class="story-photo-wrap">
+      <div class="story-photo">
+        <img src="/cristian-pic.jpg" alt="Cristian Ungureanu, founder of Beehive Book Marketing" class="story-img" />
+        <div class="story-photo-tint" aria-hidden="true"></div>
+      </div>
+
+      <!-- Floating founder card -->
+      <div class="story-founder-card">
+        <span class="story-founder-name">Cristian Ungureanu</span>
+        <span class="story-founder-label">FOUNDER</span>
+      </div>
+
+      <!-- Decorative dots -->
+      <div class="story-dots" aria-hidden="true"></div>
+    </div>
+
+    <!-- Text side -->
+    <div class="story-content">
+      <span class="section-eyebrow">Building in Public</span>
+      <h2 class="story-heading">My Story</h2>
+
+      <p class="story-body">
+        Before starting Beehive, I spent <strong>8 years</strong> building growth engines in SaaS and
+        hospitality — most recently at <strong>QuickMail.io</strong> and <strong>ScraperAPI.com</strong>,
+        where the marketing systems I helped develop generated over <strong>$5 million in ARR</strong>.
+        Funnels, attribution, conversion math — the SaaS playbook that actually compounds.
+      </p>
+
+      <p class="story-body">
+        I started Beehive because the same playbook applies to books — positioning, audience, funnel,
+        attribution, measurement. For an author whose book is meant to fill a pipeline, close
+        deals faster, and unlock the keynote circuit, that's the work that compounds.
+      </p>
+
+      <p class="story-body">
+        Right now, I'm writing, publishing, and marketing my own book using this exact process —
+        in public, one cycle ahead of my first clients. Everything I sell, I'm doing myself first.
+      </p>
+
+      <!-- Stats row -->
+      <div class="story-stats">
+        <div class="story-stat">
+          <span class="story-stat-number">$5M+</span>
+          <span class="story-stat-label">ARR generated for tech clients</span>
+        </div>
+        <div class="story-stat-divider" aria-hidden="true"></div>
+        <div class="story-stat">
+          <span class="story-stat-number">8+</span>
+          <span class="story-stat-label">Years in growth marketing</span>
+        </div>
+      </div>
+
+      <a href="/about" class="story-link">
+        Learn More About Me <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .story {
+    background: #fff;
+  }
+
+  .story-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 5rem;
+  }
+
+  /* Photo side */
+  .story-photo-wrap {
+    position: relative;
+  }
+
+  .story-photo {
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    max-width: 420px;
+  }
+
+  .story-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, #E8A317 0%, #F4C557 50%, #D4920F 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .story-initials {
+    font-family: var(--font-heading);
+    font-size: 6rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .story-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .story-photo-tint {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 50%,
+      rgba(232, 163, 23, 0.15) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* Founder card */
+  .story-founder-card {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    white-space: nowrap;
+  }
+
+  .story-founder-name {
+    font-family: var(--font-script);
+    font-size: 1.375rem;
+    color: #1A1A1A;
+    line-height: 1;
+  }
+
+  .story-founder-label {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: #E8A317;
+    text-transform: uppercase;
+  }
+
+  /* Decorative dots */
+  .story-dots {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 160px;
+    height: 160px;
+    background-image: radial-gradient(circle, #E8A317 1.5px, transparent 1.5px);
+    background-size: 20px 20px;
+    opacity: 0.2;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Content side */
+  .section-eyebrow {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #E8A317;
+    margin-bottom: 0.625rem;
+  }
+
+  .story-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 3vw, 2.75rem);
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 1.5rem;
+  }
+
+  .story-body {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: #374151;
+    margin: 0 0 1rem;
+  }
+
+  .story-body strong {
+    color: #1A1A1A;
+    font-weight: 600;
+  }
+
+  /* Stats */
+  .story-stats {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #FFF8E7;
+    border-radius: 0.875rem;
+    border: 1px solid rgba(232,163,23,0.2);
+  }
+
+  .story-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .story-stat-number {
+    font-family: var(--font-heading);
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #E8A317;
+  }
+
+  .story-stat-label {
+    font-size: 0.8125rem;
+    color: #6B7280;
+    line-height: 1.3;
+  }
+
+  .story-stat-divider {
+    width: 1px;
+    height: 3rem;
+    background: rgba(232,163,23,0.25);
+    flex-shrink: 0;
+  }
+
+  /* CTA link */
+  .story-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: #E8A317;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .story-link:hover {
+    border-color: #E8A317;
+  }
+
+  @media (max-width: 900px) {
+    .story-inner {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .story-photo {
+      max-width: 100%;
+      aspect-ratio: 3 / 2;
+    }
+
+    .story-initials {
+      font-size: 4rem;
+    }
+  }
+</style>
