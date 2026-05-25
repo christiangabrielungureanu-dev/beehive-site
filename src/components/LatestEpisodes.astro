@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 
-const allEpisodes = await getCollection('podcast', ({ data }) => !data.draft);
+const allEpisodes = await getCollection('podcast');
 const episodes = allEpisodes
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
   .slice(0, 3);
@@ -29,13 +29,17 @@ function formatDate(date: Date) {
     {episodes.length > 0 ? (
       <div class="episodes-grid">
         {episodes.map(ep => (
-          <a href={`/podcast/${ep.id}`} class="episode-card card">
+          <a href={`/podcast/#ep-${ep.data.episode}`} class="episode-card card">
             <!-- Thumbnail -->
             <div class="episode-thumb">
-              <div class="episode-thumb-placeholder">
-                <span class="episode-thumb-num">EP {ep.data.episode}</span>
-                <span class="episode-thumb-icon" aria-hidden="true">▶</span>
-              </div>
+              {ep.data.episodeImage ? (
+                <img src={ep.data.episodeImage} alt="" class="episode-thumb-img" loading="lazy" />
+              ) : (
+                <div class="episode-thumb-placeholder">
+                  <span class="episode-thumb-num">EP {ep.data.episode}</span>
+                  <span class="episode-thumb-icon" aria-hidden="true">▶</span>
+                </div>
+              )}
               <div class="episode-play-overlay" aria-hidden="true">
                 <span class="episode-play-btn">▶</span>
               </div>
@@ -51,23 +55,18 @@ function formatDate(date: Date) {
 
             <h3 class="episode-title">{ep.data.title}</h3>
 
-            <p class="episode-guest">
-              <span class="episode-guest-label">Guest:</span> {ep.data.guest} &mdash; <em>{ep.data.guestTitle}</em>
-            </p>
+            {ep.data.guest && (
+              <p class="episode-guest">
+                <span class="episode-guest-label">Guest:</span> {ep.data.guest}
+              </p>
+            )}
 
-            <p class="episode-desc">{ep.data.description}</p>
-
-            <!-- Tags -->
-            <div class="episode-tags">
-              {ep.data.tags.slice(0, 3).map(tag => (
-                <span class="episode-tag">{tag}</span>
-              ))}
-            </div>
+            <p class="episode-desc">{ep.data.summary}</p>
           </a>
         ))}
       </div>
     ) : (
-      <p class="episodes-empty">Episodes coming soon. Stay tuned!</p>
+      <p class="episodes-empty">Loading episodes…</p>
     )}
 
     <!-- Mobile see all -->
@@ -173,6 +172,18 @@ function formatDate(date: Date) {
     justify-content: center;
     gap: 0.5rem;
     transition: filter 0.2s;
+  }
+
+  .episode-thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+  }
+
+  .episode-card:hover .episode-thumb-img {
+    transform: scale(1.02);
   }
 
   .episode-thumb-num {

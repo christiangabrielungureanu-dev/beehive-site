@@ -1,80 +1,113 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SignupForm from '../../components/SignupForm.astro';
+import { getCollection } from 'astro:content';
+
+const allEpisodes = await getCollection('podcast');
+const episodes = allEpisodes.sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+const podcastSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'PodcastSeries',
+  name: 'The Hive Mind Podcast',
+  description:
+    'Conversations with authors, marketers, and operators on turning a book into a business asset — pipeline, deals, and paid stages.',
+  url: new URL('/podcast/', Astro.site).href,
+  webFeed: 'https://api.riverside.com/hosting/uEOr9jmt.rss',
+  image: new URL('/og-abstract.png', Astro.site).href,
+  author: { '@type': 'Person', name: 'Cristian Ungureanu' },
+};
 ---
 
 <BaseLayout
-  title="The Hive Mind Podcast — Book Marketing for Founders"
-  description="Conversations with authors, marketers, and operators on turning a book into a business asset — pipeline, deals, and paid stages. Subscribe for episode one."
+  title="The Hive Mind Podcast — Book Marketing for Experts & Founders"
+  description="The Hive Mind: conversations on turning a book into a business asset. Listen on Spotify, Apple Podcasts, or YouTube. New episodes every two weeks."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(podcastSchema)} />
+
   <!-- Hero -->
   <section class="podcast-hero">
     <div class="container podcast-hero-inner">
       <div class="podcast-hero-content">
         <span class="podcast-badge">
           <span class="podcast-badge-dot" aria-hidden="true"></span>
-          Coming Soon
+          New Episodes Every Two Weeks
         </span>
-        <h1 class="podcast-hero-heading">
-          The Hive Mind Podcast
-        </h1>
+        <h1 class="podcast-hero-heading">The Hive Mind Podcast</h1>
         <p class="podcast-hero-sub">
-          Real conversations about turning a book into a business asset. Authors, marketers, and
-          operators share what's working — from pre-launch positioning to lead-gen, deal velocity,
-          and the keynote circuit.
+          Real conversations with authors, marketers, and operators on turning a book into a
+          business asset — pipeline, deal velocity, and the keynote circuit.
         </p>
 
+        <div class="podcast-platforms">
+          <span class="podcast-platforms-label">Listen on</span>
+          <div class="podcast-platform-icons">
+            <a href="https://open.spotify.com/show/033l9h1JaE3qhlslHbDS7h" target="_blank" rel="noopener" class="podcast-platform">🎙️ Spotify</a>
+            <a href="https://podcasts.apple.com/podcast/id1896795747" target="_blank" rel="noopener" class="podcast-platform">🎧 Apple Podcasts</a>
+            <a href="https://www.youtube.com/playlist?list=PL0Gqs3LMAOx3A4XNjP9xZNUHYOa7kh99i" target="_blank" rel="noopener" class="podcast-platform">▶️ YouTube</a>
+          </div>
+        </div>
+
         <div class="podcast-signup-wrap">
-          <p class="podcast-signup-label">Be the first to know when we launch:</p>
+          <p class="podcast-signup-label">Get every new episode in your inbox:</p>
           <SignupForm
             source="podcast-page"
             userGroup="podcast-waitlist"
-            buttonText="Notify Me →"
+            buttonText="Subscribe →"
             placeholder="your@email.com"
             dark={true}
           />
-          <p class="podcast-signup-note">No spam. Just new episodes — directly to your inbox.</p>
-        </div>
-      </div>
-
-      <div class="podcast-hero-visual" aria-hidden="true">
-        <!-- Animated waveform card -->
-        <div class="podcast-player-mock">
-          <div class="podcast-player-header">
-            <span style="display:inline-flex;align-items:center;background:rgba(232,163,23,0.18);border:1px solid rgba(232,163,23,0.35);border-radius:6px;padding:4px 8px;">
-              <img
-                src="/images/logo-nav.png"
-                srcset="/images/logo-nav.png 1x, /images/logo-nav@2x.png 2x"
-                alt="Beehive Agency"
-                width="80"
-                height="24"
-                style="display:block;height:24px;width:auto;"
-              />
-            </span>
-            <span class="podcast-player-episode">Coming Soon</span>
-          </div>
-          <div class="podcast-waveform">
-            {Array.from({ length: 24 }).map((_, i) => (
-              <span
-                class="podcast-bar"
-                style={`height: ${18 + Math.abs(Math.sin(i * 0.7) * 44)}px; animation-delay: ${i * 0.06}s`}
-              ></span>
-            ))}
-          </div>
-          <div class="podcast-player-footer">
-            <span class="podcast-player-title">Episode 1 — Coming Soon</span>
-          </div>
-        </div>
-
-        <!-- Platform pills -->
-        <div class="podcast-platforms">
-          {['🎙️ Spotify', '▶️ YouTube', '🎧 Apple Podcasts'].map(p => (
-            <span class="podcast-platform">{p}</span>
-          ))}
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Episode list with inline players -->
+  {episodes.length > 0 && (
+    <section class="section podcast-episodes">
+      <div class="container">
+        <div class="podcast-episodes-header">
+          <span class="eyebrow">Episodes</span>
+          <h2 class="podcast-episodes-heading">All Episodes</h2>
+        </div>
+        <div class="podcast-episodes-list">
+          {episodes.map(ep => (
+            <article class="podcast-episode-card" id={`ep-${ep.data.episode}`}>
+              <div class="podcast-episode-meta">
+                {ep.data.episodeImage && (
+                  <img src={ep.data.episodeImage} alt="" class="podcast-episode-cover" loading="lazy" />
+                )}
+                <div class="podcast-episode-info">
+                  <div class="podcast-episode-meta-row">
+                    <span class="podcast-episode-num">Episode {ep.data.episode}</span>
+                    <span aria-hidden="true">·</span>
+                    <time datetime={ep.data.publishDate.toISOString()}>{formatDate(ep.data.publishDate)}</time>
+                    {ep.data.duration && (
+                      <>
+                        <span aria-hidden="true">·</span>
+                        <span>{ep.data.duration}</span>
+                      </>
+                    )}
+                  </div>
+                  <h3 class="podcast-episode-title">{ep.data.title}</h3>
+                  <p class="podcast-episode-summary">{ep.data.summary}</p>
+                </div>
+              </div>
+              <audio controls preload="none" src={ep.data.audioUrl} class="podcast-episode-audio">
+                Your browser does not support the audio element.
+              </audio>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- About the show -->
   <section class="section podcast-about">
@@ -100,59 +133,16 @@ import SignupForm from '../../components/SignupForm.astro';
     </div>
   </section>
 
-  <!-- Topics we'll cover -->
-  <section class="section podcast-topics">
-    <div class="container podcast-topics-inner">
-      <div>
-        <span class="eyebrow">Topics</span>
-        <h2 class="podcast-topics-heading">What We'll Cover</h2>
-        <ul class="podcast-topic-list">
-          {[
-            'Turning a book into a lead-gen engine',
-            'Funnel and attribution for authors — what actually drives pipeline',
-            'Speaking fees: turning the book into the keynote',
-            'Shortening the sales cycle with the book as your first touch',
-            'Email sequences that convert readers into clients',
-            'Positioning a book for business buyers, not just readers',
-            'Podcast guesting as a B2B distribution channel',
-            'Building an author brand that compounds into the business',
-          ].map(t => (
-            <li class="podcast-topic-item">
-              <span class="podcast-topic-dot" aria-hidden="true"></span>
-              {t}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div class="podcast-host-card">
-        <div class="podcast-host-photo">
-          <img src="/cristian-pic.jpg" alt="Cristian Ungureanu, host of The Hive Mind Podcast" class="podcast-host-img" />
-        </div>
-        <div class="podcast-host-info">
-          <span class="podcast-host-label">Your Host</span>
-          <span class="podcast-host-name">Cristian Ungureanu</span>
-          <span class="podcast-host-title">Founder, Beehive Book Marketing</span>
-          <p class="podcast-host-bio">
-            10+ years in growth marketing. $5M+ ARR generated. Now bringing tech-grade
-            strategy to the world of books.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Bottom signup -->
   <section class="podcast-bottom-cta">
     <div class="container podcast-bottom-inner">
-      <h2 class="podcast-bottom-heading">
-        Don't miss the first episode.
-      </h2>
-      <p class="podcast-bottom-sub">Sign up and we'll email you the moment it goes live.</p>
+      <h2 class="podcast-bottom-heading">Never miss an episode.</h2>
+      <p class="podcast-bottom-sub">Drop your email — every new episode lands straight in your inbox.</p>
       <div class="podcast-bottom-form">
         <SignupForm
           source="podcast-page-bottom"
           userGroup="podcast-waitlist"
-          buttonText="Notify Me →"
+          buttonText="Subscribe →"
           placeholder="your@email.com"
           dark={true}
         />
@@ -175,14 +165,12 @@ import SignupForm from '../../components/SignupForm.astro';
   /* Hero */
   .podcast-hero {
     background: #1A1A1A;
-    padding: 5rem 0;
+    padding: 4rem 0;
   }
 
   .podcast-hero-inner {
-    display: grid;
-    grid-template-columns: 1fr 400px;
-    gap: 4rem;
-    align-items: center;
+    max-width: 760px;
+    margin: 0 auto;
   }
 
   .podcast-badge {
@@ -218,7 +206,7 @@ import SignupForm from '../../components/SignupForm.astro';
     font-size: clamp(2.25rem, 4vw, 3.25rem);
     font-weight: 700;
     color: #fff;
-    margin: 0 0 1.25rem;
+    margin: 0 0 1rem;
     line-height: 1.15;
   }
 
@@ -226,100 +214,29 @@ import SignupForm from '../../components/SignupForm.astro';
     font-size: 1.0625rem;
     line-height: 1.75;
     color: #9CA3AF;
-    margin: 0 0 2rem;
+    margin: 0 0 1.75rem;
   }
 
-  .podcast-signup-wrap {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 1rem;
-    padding: 1.5rem;
-  }
-
-  .podcast-signup-label {
-    font-weight: 600;
-    font-size: 0.9375rem;
-    color: #E5E7EB;
-    margin: 0 0 0.875rem;
-  }
-
-  .podcast-signup-note {
-    font-size: 0.75rem;
-    color: #6B7280;
-    margin: 0.625rem 0 0;
-  }
-
-  /* Player mock */
-  .podcast-hero-visual {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    align-items: center;
-  }
-
-  .podcast-player-mock {
-    width: 100%;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 1.25rem;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .podcast-player-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .podcast-player-episode {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #E8A317;
-    background: rgba(232,163,23,0.1);
-    padding: 0.25rem 0.625rem;
-    border-radius: 9999px;
-  }
-
-  .podcast-waveform {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    height: 60px;
-  }
-
-  .podcast-bar {
-    display: block;
-    width: 4px;
-    background: #E8A317;
-    border-radius: 2px;
-    opacity: 0.6;
-    animation: wave 1.3s ease-in-out infinite alternate;
-  }
-
-  @keyframes wave {
-    0% { transform: scaleY(0.3); opacity: 0.4; }
-    100% { transform: scaleY(1); opacity: 0.85; }
-  }
-
-  .podcast-player-footer { }
-
-  .podcast-player-title {
-    font-family: var(--font-heading);
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: #9CA3AF;
-  }
-
+  /* Platforms */
   .podcast-platforms {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .podcast-platforms-label {
+    font-size: 0.8125rem;
+    color: #9CA3AF;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+
+  .podcast-platform-icons {
+    display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
   }
 
@@ -330,6 +247,140 @@ import SignupForm from '../../components/SignupForm.astro';
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 9999px;
     padding: 0.3rem 0.75rem;
+    text-decoration: none;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  a.podcast-platform:hover {
+    color: #E8A317;
+    border-color: rgba(232,163,23,0.5);
+  }
+
+  /* Hero signup */
+  .podcast-signup-wrap {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 1rem;
+    padding: 1.25rem;
+    max-width: 460px;
+  }
+
+  .podcast-signup-label {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: #E5E7EB;
+    margin: 0 0 0.75rem;
+  }
+
+  /* Episode list */
+  .podcast-episodes { background: #FDF8F0; }
+
+  .podcast-episodes-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .podcast-episodes-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.875rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0;
+  }
+
+  .podcast-episodes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .podcast-episode-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    scroll-margin-top: 6rem;
+  }
+
+  .podcast-episode-meta {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  .podcast-episode-cover {
+    width: 120px;
+    height: 120px;
+    border-radius: 0.625rem;
+    object-fit: cover;
+    display: block;
+  }
+
+  .podcast-episode-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .podcast-episode-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: #6B7280;
+  }
+
+  .podcast-episode-num {
+    font-weight: 700;
+    color: #E8A317;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .podcast-episode-title {
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .podcast-episode-summary {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: #4B5563;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .podcast-episode-audio {
+    width: 100%;
+    height: 40px;
+    display: block;
+  }
+
+  @media (max-width: 540px) {
+    .podcast-episode-meta {
+      grid-template-columns: 1fr;
+    }
+    .podcast-episode-cover {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+      max-width: 200px;
+      margin: 0 auto;
+    }
   }
 
   /* About */
@@ -375,113 +426,6 @@ import SignupForm from '../../components/SignupForm.astro';
     margin: 0;
   }
 
-  /* Topics */
-  .podcast-topics { background: #FDF8F0; }
-
-  .podcast-topics-inner {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 4rem;
-    align-items: start;
-  }
-
-  .podcast-topics-heading {
-    font-family: var(--font-heading);
-    font-size: clamp(1.625rem, 2.5vw, 2.125rem);
-    font-weight: 700;
-    color: #1A1A1A;
-    margin: 0 0 1.5rem;
-  }
-
-  .podcast-topic-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-  }
-
-  .podcast-topic-item {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    font-size: 0.9375rem;
-    color: #374151;
-    padding: 0.625rem 0;
-    border-bottom: 1px solid #E5E7EB;
-  }
-
-  .podcast-topic-dot {
-    width: 7px;
-    height: 7px;
-    background: #E8A317;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* Host card */
-  .podcast-host-card {
-    background: #1A1A1A;
-    border-radius: 1.25rem;
-    overflow: hidden;
-  }
-
-  .podcast-host-photo { }
-
-  .podcast-host-placeholder {
-    aspect-ratio: 1;
-    background: linear-gradient(145deg, #E8A317, #D4920F);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-heading);
-    font-size: 3rem;
-    font-weight: 700;
-    color: rgba(255,255,255,0.5);
-  }
-
-  .podcast-host-img {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    display: block;
-  }
-
-  .podcast-host-info {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .podcast-host-label {
-    font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: #E8A317;
-    text-transform: uppercase;
-  }
-
-  .podcast-host-name {
-    font-family: var(--font-script);
-    font-size: 1.5rem;
-    color: #fff;
-  }
-
-  .podcast-host-title {
-    font-size: 0.8125rem;
-    color: #9CA3AF;
-    margin-bottom: 0.5rem;
-  }
-
-  .podcast-host-bio {
-    font-size: 0.875rem;
-    line-height: 1.6;
-    color: #6B7280;
-    margin: 0;
-  }
-
   /* Bottom CTA */
   .podcast-bottom-cta {
     background: #1A1A1A;
@@ -501,14 +445,8 @@ import SignupForm from '../../components/SignupForm.astro';
 
   .podcast-bottom-form { max-width: 480px; margin: 0 auto; }
 
-  /* Responsive */
   @media (max-width: 1024px) {
     .podcast-about-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  @media (max-width: 960px) {
-    .podcast-hero-inner,
-    .podcast-topics-inner { grid-template-columns: 1fr; }
   }
 
   @media (max-width: 540px) {

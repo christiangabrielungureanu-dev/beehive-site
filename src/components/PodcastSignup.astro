@@ -1,5 +1,10 @@
 ---
 import SignupForm from './SignupForm.astro';
+import { getCollection } from 'astro:content';
+
+const allEpisodes = await getCollection('podcast');
+const latestEpisode = allEpisodes
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())[0];
 ---
 
 <section class="podcast-signup section" id="podcast">
@@ -34,49 +39,82 @@ import SignupForm from './SignupForm.astro';
 
       <!-- Signup -->
       <div class="podcast-form-wrap">
-        <p class="podcast-form-label">Get notified when the first episode drops:</p>
+        <p class="podcast-form-label">Get every new episode in your inbox:</p>
         <SignupForm
           source="podcast-homepage"
           userGroup="podcast-waitlist"
-          buttonText="Notify Me →"
+          buttonText="Subscribe →"
           placeholder="your@email.com"
         />
         <p class="podcast-form-note">No spam. Just new episodes.</p>
       </div>
+
+      <a href="/podcast" class="podcast-browse-link">Browse all episodes <span aria-hidden="true">→</span></a>
     </div>
 
     <!-- Right: visual -->
-    <div class="podcast-visual" aria-hidden="true">
-      <div class="podcast-card-main">
-        <div class="podcast-waveform">
-          {Array.from({ length: 20 }).map((_, i) => (
-            <span
-              class="podcast-bar"
-              style={`height: ${20 + Math.abs(Math.sin(i * 0.8) * 50)}px; animation-delay: ${i * 0.07}s`}
-            ></span>
-          ))}
+    <div class="podcast-visual">
+      {latestEpisode ? (
+        <a href={`/podcast/#ep-${latestEpisode.data.episode}`} class="podcast-card-main podcast-card-link">
+          <div class="podcast-card-header">
+            <span class="podcast-logo-badge">
+              <img
+                src="/images/logo-nav.png"
+                srcset="/images/logo-nav.png 1x, /images/logo-nav@2x.png 2x"
+                alt="Beehive Agency"
+                class="podcast-card-logo"
+                width="80"
+                height="27"
+              />
+            </span>
+            <span class="podcast-card-label">Latest Episode</span>
+          </div>
+          <div class="podcast-waveform" aria-hidden="true">
+            {Array.from({ length: 20 }).map((_, i) => (
+              <span
+                class="podcast-bar"
+                style={`height: ${20 + Math.abs(Math.sin(i * 0.8) * 50)}px; animation-delay: ${i * 0.07}s`}
+              ></span>
+            ))}
+          </div>
+          <div class="podcast-card-episode">
+            <span class="podcast-card-episode-num">Episode {latestEpisode.data.episode}</span>
+            <p class="podcast-card-episode-title">{latestEpisode.data.title}</p>
+            <span class="podcast-card-cta">Listen now <span aria-hidden="true">→</span></span>
+          </div>
+        </a>
+      ) : (
+        <div class="podcast-card-main" aria-hidden="true">
+          <div class="podcast-waveform">
+            {Array.from({ length: 20 }).map((_, i) => (
+              <span
+                class="podcast-bar"
+                style={`height: ${20 + Math.abs(Math.sin(i * 0.8) * 50)}px; animation-delay: ${i * 0.07}s`}
+              ></span>
+            ))}
+          </div>
+          <div class="podcast-card-meta">
+            <span class="podcast-logo-badge">
+              <img
+                src="/images/logo-nav.png"
+                srcset="/images/logo-nav.png 1x, /images/logo-nav@2x.png 2x"
+                alt="Beehive Agency"
+                class="podcast-card-logo"
+                width="80"
+                height="27"
+              />
+            </span>
+            <span class="podcast-card-label">Live</span>
+          </div>
         </div>
-        <div class="podcast-card-meta">
-          <span class="podcast-logo-badge">
-            <img
-              src="/images/logo-nav.png"
-              srcset="/images/logo-nav.png 1x, /images/logo-nav@2x.png 2x"
-              alt="Beehive Agency"
-              class="podcast-card-logo"
-              width="80"
-              height="27"
-            />
-          </span>
-          <span class="podcast-card-label">Coming Soon</span>
-        </div>
-      </div>
+      )}
 
       <div class="podcast-platforms">
-        <span class="podcast-platforms-label">Coming to</span>
+        <span class="podcast-platforms-label">Listen on</span>
         <div class="podcast-platform-icons">
-          <span class="podcast-platform">🎙️ Spotify</span>
-          <span class="podcast-platform">▶️ YouTube</span>
-          <span class="podcast-platform">🎧 Apple Podcasts</span>
+          <a href="https://open.spotify.com/show/033l9h1JaE3qhlslHbDS7h" target="_blank" rel="noopener" class="podcast-platform">🎙️ Spotify</a>
+          <a href="https://podcasts.apple.com/podcast/id1896795747" target="_blank" rel="noopener" class="podcast-platform">🎧 Apple Podcasts</a>
+          <a href="https://www.youtube.com/playlist?list=PL0Gqs3LMAOx3A4XNjP9xZNUHYOa7kh99i" target="_blank" rel="noopener" class="podcast-platform">▶️ YouTube</a>
         </div>
       </div>
     </div>
@@ -173,6 +211,24 @@ import SignupForm from './SignupForm.astro';
     margin: 0.625rem 0 0;
   }
 
+  .podcast-browse-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-top: 1.25rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #E8A317;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 0.125rem;
+    transition: border-color 0.15s;
+  }
+
+  .podcast-browse-link:hover {
+    border-bottom-color: #E8A317;
+  }
+
   /* Visual */
   .podcast-visual {
     display: flex;
@@ -247,6 +303,65 @@ import SignupForm from './SignupForm.astro';
     border: 1px solid rgba(232,163,23,0.3);
   }
 
+  /* Linked card (with latest episode) */
+  .podcast-card-link {
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .podcast-card-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 56px rgba(0,0,0,0.2);
+  }
+
+  .podcast-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .podcast-card-episode {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .podcast-card-episode-num {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #E8A317;
+  }
+
+  .podcast-card-episode-title {
+    font-family: var(--font-heading);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.4;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .podcast-card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #E8A317;
+    margin-top: 0.25rem;
+  }
+
+  .podcast-card-link:hover .podcast-card-cta {
+    gap: 0.625rem;
+  }
+
   /* Platforms */
   .podcast-platforms {
     display: flex;
@@ -277,6 +392,13 @@ import SignupForm from './SignupForm.astro';
     border: 1px solid #E5E7EB;
     border-radius: 9999px;
     padding: 0.3rem 0.75rem;
+    text-decoration: none;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  a.podcast-platform:hover {
+    color: #E8A317;
+    border-color: #E8A317;
   }
 
   @media (max-width: 900px) {

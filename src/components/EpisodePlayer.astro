@@ -1,0 +1,110 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  guid: string;
+}
+
+const { guid } = Astro.props;
+const allEpisodes = await getCollection('podcast');
+const ep = allEpisodes.find(e => e.data.guid === guid);
+---
+
+{ep && (
+  <figure class="episode-player">
+    <div class="episode-player-meta">
+      {ep.data.episodeImage && (
+        <img src={ep.data.episodeImage} alt="" class="episode-player-cover" loading="lazy" />
+      )}
+      <div class="episode-player-info">
+        <span class="episode-player-tag">Episode {ep.data.episode}{ep.data.duration ? ` · ${ep.data.duration}` : ''}</span>
+        <p class="episode-player-title">{ep.data.title}</p>
+      </div>
+    </div>
+    <audio controls preload="none" src={ep.data.audioUrl} class="episode-player-audio">
+      Your browser does not support the audio element.
+    </audio>
+    <figcaption class="episode-player-platforms">
+      <span>Listen on</span>
+      <a href="https://open.spotify.com/show/033l9h1JaE3qhlslHbDS7h" target="_blank" rel="noopener">Spotify</a>
+      <a href="https://podcasts.apple.com/podcast/id1896795747" target="_blank" rel="noopener">Apple</a>
+      <a href="https://www.youtube.com/playlist?list=PL0Gqs3LMAOx3A4XNjP9xZNUHYOa7kh99i" target="_blank" rel="noopener">YouTube</a>
+    </figcaption>
+  </figure>
+)}
+
+<style>
+  .episode-player {
+    margin: 2rem 0;
+    padding: 1.25rem;
+    background: #1A1A1A;
+    border-radius: 1rem;
+    color: #fff;
+  }
+
+  .episode-player-meta {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 0.875rem;
+    align-items: center;
+    margin-bottom: 0.875rem;
+  }
+
+  .episode-player-cover {
+    width: 72px;
+    height: 72px;
+    border-radius: 0.5rem;
+    object-fit: cover;
+    display: block;
+  }
+
+  .episode-player-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .episode-player-tag {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #E8A317;
+  }
+
+  .episode-player-title {
+    font-family: var(--font-heading);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .episode-player-audio {
+    width: 100%;
+    height: 36px;
+    display: block;
+  }
+
+  .episode-player-platforms {
+    margin-top: 0.875rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #9CA3AF;
+  }
+
+  .episode-player-platforms a {
+    color: #E8A317;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s;
+  }
+
+  .episode-player-platforms a:hover {
+    border-bottom-color: #E8A317;
+  }
+</style>

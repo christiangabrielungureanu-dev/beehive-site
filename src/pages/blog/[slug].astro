@@ -1,0 +1,189 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EpisodePlayer from '../../components/EpisodePlayer.astro';
+import CTASection from '../../components/CTASection.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+const canonical = new URL(`/blog/${post.id}/`, Astro.site).href;
+const ogImage = post.data.coverImage || '/og-abstract.png';
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.publishDate.toISOString(),
+  ...(post.data.updatedDate && { dateModified: post.data.updatedDate.toISOString() }),
+  ...(post.data.coverImage && { image: new URL(post.data.coverImage, Astro.site).href }),
+  author: { '@type': 'Person', name: 'Cristian Ungureanu' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Beehive Book Marketing',
+    logo: { '@type': 'ImageObject', url: new URL('/images/logo-nav.png', Astro.site).href },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+};
+---
+
+<BaseLayout
+  title={`${post.data.title} — Beehive Book Marketing`}
+  description={post.data.description}
+  ogImage={ogImage}
+  canonicalURL={canonical}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="blog-post">
+    <header class="blog-post-header">
+      <div class="container blog-post-header-inner">
+        <nav class="blog-breadcrumb" aria-label="Breadcrumb">
+          <a href="/blog" class="breadcrumb-link">← All Articles</a>
+        </nav>
+
+        <div class="blog-post-meta">
+          <time datetime={post.data.publishDate.toISOString()}>{formatDate(post.data.publishDate)}</time>
+          {post.data.updatedDate && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>Updated {formatDate(post.data.updatedDate)}</span>
+            </>
+          )}
+        </div>
+
+        <h1 class="blog-post-heading">{post.data.title}</h1>
+        <p class="blog-post-lede">{post.data.description}</p>
+      </div>
+    </header>
+
+    <div class="blog-post-body-wrap">
+      <div class="container blog-post-body-inner">
+        <div class="blog-post-content prose">
+          <Content components={{ EpisodePlayer }} />
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .blog-post-header {
+    background: linear-gradient(135deg, #FFFDF7 0%, #FFF8E7 100%);
+    padding: 3rem 0 2.5rem;
+  }
+
+  .blog-breadcrumb { margin-bottom: 1.5rem; }
+
+  .breadcrumb-link {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6B7280;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .breadcrumb-link:hover { color: #E8A317; }
+
+  .blog-post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: #6B7280;
+    margin-bottom: 0.875rem;
+  }
+
+  .blog-post-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.875rem, 3.5vw, 2.875rem);
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 1rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .blog-post-lede {
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: #4B5563;
+    margin: 0;
+    max-width: 65ch;
+  }
+
+  .blog-post-body-wrap {
+    background: #fff;
+    padding: 3rem 0 4rem;
+  }
+
+  .blog-post-body-inner {
+    max-width: 760px;
+  }
+
+  .prose {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: #374151;
+  }
+
+  .prose h2 {
+    font-family: var(--font-heading);
+    font-size: 1.625rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 2.5rem 0 1rem;
+    line-height: 1.3;
+  }
+
+  .prose h3 {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 2rem 0 0.75rem;
+  }
+
+  .prose p { margin: 0 0 1.25rem; }
+
+  .prose ul, .prose ol {
+    padding-left: 1.5rem;
+    margin: 0 0 1.25rem;
+  }
+
+  .prose li { margin: 0.375rem 0; }
+
+  .prose strong { color: #1A1A1A; font-weight: 600; }
+
+  .prose a {
+    color: #E8A317;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(232,163,23,0.3);
+  }
+
+  .prose a:hover { border-bottom-color: #E8A317; }
+
+  .prose blockquote {
+    margin: 1.5rem 0;
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    border-left: 3px solid #E8A317;
+    color: #374151;
+    font-style: italic;
+  }
+</style>
