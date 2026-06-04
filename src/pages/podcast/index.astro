@@ -79,6 +79,7 @@ const podcastSchema = {
         <div class="podcast-episodes-list">
           {episodes.map(ep => (
             <article class="podcast-episode-card" id={`ep-${ep.data.episode}`}>
+              <a href={`/podcast/${ep.id}/`} class="podcast-episode-link" aria-label={`Episode ${ep.data.episode}: ${ep.data.title}`}></a>
               <div class="podcast-episode-meta">
                 {ep.data.episodeImage && (
                   <img src={ep.data.episodeImage} alt="" class="podcast-episode-cover" loading="lazy" />
@@ -297,6 +298,7 @@ const podcastSchema = {
   }
 
   .podcast-episode-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -305,6 +307,26 @@ const podcastSchema = {
     border-radius: 1rem;
     padding: 1.5rem;
     scroll-margin-top: 6rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .podcast-episode-card:hover {
+    border-color: rgba(232,163,23,0.4);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  }
+
+  .podcast-episode-link {
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    z-index: 1;
+  }
+
+  /* Keep audio player and platform links clickable above the card link */
+  .podcast-episode-audio,
+  .podcast-episode-card a:not(.podcast-episode-link) {
+    position: relative;
+    z-index: 2;
   }
 
   .podcast-episode-meta {

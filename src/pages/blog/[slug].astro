@@ -85,32 +85,6 @@ const faqSchema = post.data.faq?.length ? {
   })),
 } : null;
 
-const podcastEpisodeSchemas = await (async () => {
-  if (!post.data.episodeGuids?.length) return [];
-  const allEpisodes = await getCollection('podcast');
-  return post.data.episodeGuids.flatMap(guid => {
-    const ep = allEpisodes.find(e => e.data.guid === guid);
-    if (!ep) return [];
-    return [{
-      '@context': 'https://schema.org',
-      '@type': 'PodcastEpisode',
-      name: ep.data.title,
-      ...(ep.data.duration && { timeRequired: `PT${ep.data.duration.replace(':', 'H').replace(':', 'M')}S` }),
-      associatedMedia: {
-        '@type': 'AudioObject',
-        contentUrl: ep.data.audioUrl,
-        ...(ep.data.duration && { duration: `PT${ep.data.duration}` }),
-      },
-      partOfSeries: {
-        '@type': 'PodcastSeries',
-        name: 'The Hive Mind Podcast',
-        url: new URL('/podcast', Astro.site).href,
-      },
-      ...(ep.data.episodeImage && { image: ep.data.episodeImage }),
-      description: ep.data.summary,
-    }];
-  });
-})();
 ---
 
 <BaseLayout
@@ -123,7 +97,6 @@ const podcastEpisodeSchemas = await (async () => {
   <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
-  {podcastEpisodeSchemas.map(s => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
 
   <article class="blog-post">
     <!-- Header -->
