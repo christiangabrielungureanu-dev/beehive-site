@@ -1,0 +1,75 @@
+---
+# ── Required ────────────────────────────────────────────────────────────────
+title: "Article Title: Subtitle"
+description: "One-sentence meta description (150–160 chars). What the reader learns and who the guest is."
+primaryKeyword: "target keyword phrase"
+publishDate: 2026-01-01
+
+# ── Cover image (1200×630 SVG — ask Claude to generate) ─────────────────────
+coverImage: "/images/blog/article-slug.svg"
+
+# ── Podcast episode (copy GUID from RSS feed, not from memory) ───────────────
+episodeGuids:
+  - "paste-guid-from-rss-feed-here"
+
+# ── Guest (if podcast-based article) ────────────────────────────────────────
+guestName: "First Last"
+guestBio: "2–3 sentences. Role, what they're known for, why it's relevant to the article topic."
+guestImage: "/images/blog/first-last.jpg"
+guestLinkedIn: "https://www.linkedin.com/in/their-handle/"
+
+# ── FAQ schema (populates FAQPage rich result in Google) ────────────────────
+faq:
+  - q: "Question one?"
+    a: "Answer one."
+  - q: "Question two?"
+    a: "Answer two."
+  - q: "Question three?"
+    a: "Answer three."
+  - q: "Question four?"
+    a: "Answer four."
+
+# ── Optional ─────────────────────────────────────────────────────────────────
+# updatedDate: 2026-01-15   # add whenever you revise the article
+draft: true                  # change to false when ready to publish
+---
+
+import EpisodePlayer from '../../components/EpisodePlayer.astro';
+
+Opening paragraph — no heading. State the core insight and frame why it matters to the reader (consultant/founder/expert author). 1–2 paragraphs.
+
+<EpisodePlayer guid="paste-guid-from-rss-feed-here" />
+
+## Section heading
+
+Body copy. Use `>` blockquotes for direct guest quotes — they render as styled pull-quote cards.
+
+> "Direct quote from the guest that captures a key insight."
+
+More copy.
+
+## Section heading
+
+More copy.
+
+> "Another pull quote."
+
+## FAQ
+
+**Question one?**
+Answer one.
+
+**Question two?**
+Answer two.
+
+**Question three?**
+Answer three.
+
+**Question four?**
+Answer four.
+
+## Closing CTA heading
+
+Closing paragraph. Tie back to the article's main insight, then bridge to Beehive's services.
+
+[Let's talk about your launch](/services). And for the full conversation with [Guest Name] — [watch the complete episode](https://youtu.be/VIDEO_ID) or [connect with them on LinkedIn](https://www.linkedin.com/in/their-handle/).
