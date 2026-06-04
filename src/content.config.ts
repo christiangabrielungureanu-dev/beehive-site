@@ -97,6 +97,7 @@ const blog = defineCollection({
     publishDate: z.date(),
     updatedDate: z.date().optional(),
     coverImage: z.string().optional(),
+    ogImage: z.string().optional(),
     episodeGuids: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
     guestName: z.string().optional(),

@@ -20,7 +20,7 @@ function formatDate(date: Date) {
 }
 
 const canonical = new URL(`/blog/${post.id}/`, Astro.site).href;
-const ogImage = post.data.coverImage || '/og-abstract.png';
+const ogImage = post.data.ogImage || post.data.coverImage || '/og-abstract.png';
 
 const guestInitials = post.data.guestName
   ? post.data.guestName.split(' ').map((n: string) => n[0]).join('').slice(0, 2)
