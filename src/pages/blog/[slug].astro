@@ -22,15 +22,41 @@ function formatDate(date: Date) {
 const canonical = new URL(`/blog/${post.id}/`, Astro.site).href;
 const ogImage = post.data.coverImage || '/og-abstract.png';
 
+const guestInitials = post.data.guestName
+  ? post.data.guestName.split(' ').map((n: string) => n[0]).join('').slice(0, 2)
+  : '';
+
+const authorSchema = {
+  '@type': 'Person',
+  '@id': new URL('/about', Astro.site).href,
+  name: 'Cristian Ungureanu',
+  url: new URL('/about', Astro.site).href,
+  image: new URL('/cristian-pic.jpg', Astro.site).href,
+  jobTitle: 'Founder',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Beehive Book Marketing',
+    url: Astro.site?.href,
+  },
+};
+
 const articleSchema = {
   '@context': 'https://schema.org',
-  '@type': 'Article',
+  '@type': 'BlogPosting',
   headline: post.data.title,
   description: post.data.description,
   datePublished: post.data.publishDate.toISOString(),
   ...(post.data.updatedDate && { dateModified: post.data.updatedDate.toISOString() }),
   ...(post.data.coverImage && { image: new URL(post.data.coverImage, Astro.site).href }),
-  author: { '@type': 'Person', name: 'Cristian Ungureanu' },
+  author: authorSchema,
+  ...(post.data.guestName && {
+    about: {
+      '@type': 'Person',
+      name: post.data.guestName,
+      ...(post.data.guestLinkedIn && { url: post.data.guestLinkedIn }),
+      ...(post.data.guestImage && { image: new URL(post.data.guestImage, Astro.site).href }),
+    },
+  }),
   publisher: {
     '@type': 'Organization',
     name: 'Beehive Book Marketing',
@@ -38,6 +64,26 @@ const articleSchema = {
   },
   mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
 };
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: Astro.site?.href },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: new URL('/blog/', Astro.site).href },
+    { '@type': 'ListItem', position: 3, name: post.data.title, item: canonical },
+  ],
+};
+
+const faqSchema = post.data.faq?.length ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: post.data.faq.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+} : null;
 ---
 
 <BaseLayout
@@ -45,10 +91,14 @@ const articleSchema = {
   description={post.data.description}
   ogImage={ogImage}
   canonicalURL={canonical}
+  ogType="article"
 >
   <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
 
   <article class="blog-post">
+    <!-- Header -->
     <header class="blog-post-header">
       <div class="container blog-post-header-inner">
         <nav class="blog-breadcrumb" aria-label="Breadcrumb">
@@ -63,6 +113,12 @@ const articleSchema = {
               <span>Updated {formatDate(post.data.updatedDate)}</span>
             </>
           )}
+          {post.data.guestName && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>with <strong>{post.data.guestName}</strong></span>
+            </>
+          )}
         </div>
 
         <h1 class="blog-post-heading">{post.data.title}</h1>
@@ -70,11 +126,60 @@ const articleSchema = {
       </div>
     </header>
 
+    <!-- Guest card -->
+    {post.data.guestName && (
+      <div class="blog-guest-band">
+        <div class="container">
+          <aside class="guest-card">
+            <div class="guest-card-avatar">
+              {post.data.guestImage
+                ? <img src={post.data.guestImage} alt={post.data.guestName} class="guest-card-photo" width="80" height="80" loading="eager" />
+                : <span class="guest-card-initials" aria-hidden="true">{guestInitials}</span>
+              }
+            </div>
+            <div class="guest-card-body">
+              <span class="guest-card-eyebrow">Featured Guest</span>
+              <strong class="guest-card-name">{post.data.guestName}</strong>
+              {post.data.guestBio && <p class="guest-card-bio">{post.data.guestBio}</p>}
+            </div>
+            {post.data.guestLinkedIn && (
+              <a href={post.data.guestLinkedIn} target="_blank" rel="noopener noreferrer" class="guest-card-link" aria-label={`Connect with ${post.data.guestName} on LinkedIn`}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                LinkedIn
+              </a>
+            )}
+          </aside>
+        </div>
+      </div>
+    )}
+
+    <!-- Body -->
     <div class="blog-post-body-wrap">
       <div class="container blog-post-body-inner">
         <div class="blog-post-content prose">
           <Content components={{ EpisodePlayer }} />
         </div>
+
+        <!-- Author bio -->
+        <aside class="author-card" aria-label="About the author">
+          <img
+            src="/cristian-pic.jpg"
+            alt="Cristian Ungureanu, founder of Beehive Book Marketing"
+            class="author-card-photo"
+            width="72"
+            height="72"
+            loading="lazy"
+          />
+          <div class="author-card-body">
+            <span class="author-card-eyebrow">Written by</span>
+            <a href="/about" class="author-card-name">Cristian Ungureanu</a>
+            <p class="author-card-bio">
+              Senior growth marketer ($5M+ ARR in B2B SaaS) and founder of Beehive Book Marketing.
+              I help experts and founders turn their books into lead engines — applying the same
+              funnel-and-attribution thinking that scales tech companies.
+            </p>
+          </div>
+        </aside>
       </div>
     </div>
   </article>
@@ -83,6 +188,7 @@ const articleSchema = {
 </BaseLayout>
 
 <style>
+  /* ── Header ─────────────────────────────────── */
   .blog-post-header {
     background: linear-gradient(135deg, #FFFDF7 0%, #FFF8E7 100%);
     padding: 3rem 0 2.5rem;
@@ -110,6 +216,8 @@ const articleSchema = {
     margin-bottom: 0.875rem;
   }
 
+  .blog-post-meta strong { color: #1A1A1A; font-weight: 600; }
+
   .blog-post-heading {
     font-family: var(--font-heading);
     font-size: clamp(1.875rem, 3.5vw, 2.875rem);
@@ -128,62 +236,253 @@ const articleSchema = {
     max-width: 65ch;
   }
 
+  /* ── Guest card ──────────────────────────────── */
+  .blog-guest-band {
+    background: #1A1A1A;
+    padding: 1.25rem 0;
+  }
+
+  .guest-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .guest-card-avatar {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(135deg, #E8A317, #F4C557);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .guest-card-photo {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+  }
+
+  .guest-card-initials {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.02em;
+  }
+
+  .guest-card-body {
+    flex: 1;
+    min-width: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .guest-card-eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #E8A317;
+  }
+
+  .guest-card-name {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .guest-card-bio {
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: #9CA3AF;
+    margin: 0.25rem 0 0;
+    max-width: 62ch;
+  }
+
+  .guest-card-link {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #E8A317;
+    text-decoration: none;
+    border: 1px solid rgba(232,163,23,0.35);
+    border-radius: 2rem;
+    padding: 0.4rem 0.875rem;
+    transition: background 0.15s, border-color 0.15s;
+    white-space: nowrap;
+  }
+
+  .guest-card-link:hover {
+    background: rgba(232,163,23,0.1);
+    border-color: #E8A317;
+  }
+
+  /* ── Body ────────────────────────────────────── */
   .blog-post-body-wrap {
     background: #fff;
-    padding: 3rem 0 4rem;
+    padding: 3.5rem 0 5rem;
   }
 
   .blog-post-body-inner {
     max-width: 760px;
   }
 
-  .prose {
+  /* ── Prose ───────────────────────────────────── */
+  :global(.prose) {
     font-size: 1.0625rem;
-    line-height: 1.8;
+    line-height: 1.85;
     color: #374151;
   }
 
-  .prose h2 {
+  :global(.prose h2) {
     font-family: var(--font-heading);
     font-size: 1.625rem;
     font-weight: 700;
     color: #1A1A1A;
-    margin: 2.5rem 0 1rem;
+    margin: 3rem 0 1.125rem;
     line-height: 1.3;
+    letter-spacing: -0.01em;
   }
 
-  .prose h3 {
+  :global(.prose h3) {
     font-family: var(--font-heading);
     font-size: 1.25rem;
     font-weight: 700;
     color: #1A1A1A;
-    margin: 2rem 0 0.75rem;
+    margin: 2.25rem 0 0.875rem;
   }
 
-  .prose p { margin: 0 0 1.25rem; }
+  :global(.prose p) { margin: 0 0 1.5rem; }
 
-  .prose ul, .prose ol {
+  :global(.prose ul), :global(.prose ol) {
     padding-left: 1.5rem;
-    margin: 0 0 1.25rem;
+    margin: 0 0 1.5rem;
   }
 
-  .prose li { margin: 0.375rem 0; }
+  :global(.prose li) { margin: 0.5rem 0; }
 
-  .prose strong { color: #1A1A1A; font-weight: 600; }
+  :global(.prose strong) { color: #1A1A1A; font-weight: 600; }
 
-  .prose a {
-    color: #E8A317;
+  :global(.prose a) {
+    color: #C8860E;
     text-decoration: none;
-    border-bottom: 1px solid rgba(232,163,23,0.3);
+    border-bottom: 1px solid rgba(200,134,14,0.35);
+    transition: border-color 0.15s;
   }
 
-  .prose a:hover { border-bottom-color: #E8A317; }
+  :global(.prose a:hover) { border-bottom-color: #C8860E; }
 
-  .prose blockquote {
-    margin: 1.5rem 0;
-    padding: 0.5rem 0 0.5rem 1.25rem;
-    border-left: 3px solid #E8A317;
-    color: #374151;
+  /* ── Blockquote (pull-quote card style) ───────── */
+  :global(.prose blockquote) {
+    position: relative;
+    margin: 2.5rem 0;
+    padding: 1.75rem 1.75rem 1.75rem 2.5rem;
+    background: #FFF8E7;
+    border: none;
+    border-left: 4px solid #E8A317;
+    border-radius: 0 1rem 1rem 0;
+    font-style: normal;
+  }
+
+  :global(.prose blockquote::before) {
+    content: '\201C';
+    position: absolute;
+    top: 0.75rem;
+    left: 1rem;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 4.5rem;
+    color: #E8A317;
+    opacity: 0.25;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  :global(.prose blockquote p) {
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
     font-style: italic;
+    color: #1A1A1A;
+    margin: 0;
+    line-height: 1.65;
+    position: relative;
+  }
+
+  :global(.prose blockquote p + p) { margin-top: 0.875rem; }
+
+  /* ── Author card ─────────────────────────────── */
+  .author-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin-top: 4rem;
+    padding: 1.75rem;
+    background: #FDF8F0;
+    border: 1px solid rgba(232,163,23,0.2);
+    border-radius: 1.25rem;
+  }
+
+  .author-card-photo {
+    flex-shrink: 0;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    border: 3px solid #E8A317;
+  }
+
+  .author-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .author-card-eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #E8A317;
+  }
+
+  .author-card-name {
+    font-family: var(--font-heading);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: #1A1A1A;
+    text-decoration: none;
+    border-bottom: none;
+    transition: color 0.15s;
+    display: inline;
+  }
+
+  .author-card-name:hover { color: #E8A317; }
+
+  .author-card-bio {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: #4B5563;
+    margin: 0.375rem 0 0;
+  }
+
+  /* ── Responsive ──────────────────────────────── */
+  @media (max-width: 640px) {
+    .guest-card { gap: 1rem; }
+    .guest-card-link { width: 100%; justify-content: center; }
+    .author-card { flex-direction: column; gap: 1rem; }
+    .author-card-photo { width: 60px; height: 60px; }
   }
 </style>

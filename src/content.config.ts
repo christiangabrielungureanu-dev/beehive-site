@@ -99,6 +99,11 @@ const blog = defineCollection({
     coverImage: z.string().optional(),
     episodeGuids: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
+    guestName: z.string().optional(),
+    guestBio: z.string().optional(),
+    guestImage: z.string().optional(),
+    guestLinkedIn: z.string().optional(),
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
   }),
 });
 

@@ -112,7 +112,7 @@ function formatDate(date: Date) {
 
   .blog-list-item {
     display: grid;
-    grid-template-columns: 160px 1fr;
+    grid-template-columns: 220px 1fr;
     gap: 1.5rem;
     align-items: center;
     background: #FDF8F0;
@@ -130,10 +130,11 @@ function formatDate(date: Date) {
   }
 
   .blog-list-cover {
-    width: 160px;
-    height: 120px;
+    width: 220px;
+    aspect-ratio: 16 / 9;
     border-radius: 0.625rem;
     object-fit: cover;
+    object-position: left center;
     display: block;
   }
 
@@ -191,7 +192,6 @@ function formatDate(date: Date) {
     }
     .blog-list-cover {
       width: 100%;
-      height: auto;
       aspect-ratio: 16 / 9;
     }
   }

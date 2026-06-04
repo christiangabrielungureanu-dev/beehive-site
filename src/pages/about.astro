@@ -1,12 +1,32 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CTASection from '../components/CTASection.astro';
+
+const siteUrl = Astro.site?.href ?? 'https://beehivebookmarketing.com/';
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': new URL('/about', Astro.site).href,
+  name: 'Cristian Ungureanu',
+  url: new URL('/about', Astro.site).href,
+  image: new URL('/cristian-pic.jpg', Astro.site).href,
+  jobTitle: 'Founder',
+  description: 'Senior growth marketer ($5M+ ARR in B2B SaaS) and founder of Beehive Book Marketing. Helps experts and founders turn their books into lead engines.',
+  sameAs: ['https://www.linkedin.com/in/cristian-ungureanu/'],
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Beehive Book Marketing',
+    url: siteUrl,
+  },
+};
 ---
 
 <BaseLayout
   title="About Cristian Ungureanu — Beehive Book Marketing"
   description="Cristian Ungureanu is a senior growth marketer ($5M+ ARR in B2B SaaS) who brings funnel-and-attribution thinking to experts and founders publishing books."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   <!-- Hero -->
   <section class="about-hero section">
     <div class="container about-hero-inner">

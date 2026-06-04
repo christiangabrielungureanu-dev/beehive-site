@@ -8,6 +8,7 @@ interface Props {
   description?: string;
   ogImage?: string;
   canonicalURL?: string;
+  ogType?: string;
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   description = 'End-to-end book marketing for founders, consultants, and experts. We market your book like a SaaS product — built to drive leads, faster deals, and paid stages.',
   ogImage = '/og-abstract.png',
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+  ogType = 'website',
 } = Astro.props;
 ---
 
@@ -34,7 +36,7 @@ const {
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
