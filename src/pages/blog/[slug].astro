@@ -47,7 +47,7 @@ const articleSchema = {
   description: post.data.description,
   datePublished: post.data.publishDate.toISOString(),
   ...(post.data.updatedDate && { dateModified: post.data.updatedDate.toISOString() }),
-  ...(post.data.coverImage && { image: new URL(post.data.coverImage, Astro.site).href }),
+  ...((post.data.ogImage || post.data.coverImage) && { image: new URL(post.data.ogImage || post.data.coverImage!, Astro.site).href }),
   author: authorSchema,
   ...(post.data.guestName && {
     about: {
