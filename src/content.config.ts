@@ -99,6 +99,7 @@ const blog = defineCollection({
     coverImage: z.string().optional(),
     ogImage: z.string().optional(),
     episodeGuids: z.array(z.string()).default([]),
+    youtubeUrl: z.string().optional(),
     draft: z.boolean().default(false),
     guestName: z.string().optional(),
     guestBio: z.string().optional(),

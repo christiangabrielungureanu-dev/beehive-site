@@ -2,9 +2,27 @@
 import { getCollection } from 'astro:content';
 
 const allEpisodes = await getCollection('podcast');
+const allPosts = await getCollection('blog');
+
 const episodes = allEpisodes
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
   .slice(0, 3);
+
+function youtubeId(url: string): string | undefined {
+  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([A-Za-z0-9_-]{11})/);
+  return m?.[1];
+}
+
+function getYoutubeData(guid: string): { url: string; thumb: string } | undefined {
+  const post = allPosts.find(p => p.data.episodeGuids.includes(guid) && p.data.youtubeUrl);
+  if (!post?.data.youtubeUrl) return undefined;
+  const id = youtubeId(post.data.youtubeUrl);
+  if (!id) return undefined;
+  return {
+    url: post.data.youtubeUrl,
+    thumb: `https://img.youtube.com/vi/${id}/maxresdefault.jpg`,
+  };
+}
 
 function formatDate(date: Date) {
   return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -28,42 +46,46 @@ function formatDate(date: Date) {
     <!-- Episode cards -->
     {episodes.length > 0 ? (
       <div class="episodes-grid">
-        {episodes.map(ep => (
-          <a href={`/podcast/#ep-${ep.data.episode}`} class="episode-card card">
-            <!-- Thumbnail -->
-            <div class="episode-thumb">
-              {ep.data.episodeImage ? (
-                <img src={ep.data.episodeImage} alt="" class="episode-thumb-img" loading="lazy" />
-              ) : (
-                <div class="episode-thumb-placeholder">
-                  <span class="episode-thumb-num">EP {ep.data.episode}</span>
-                  <span class="episode-thumb-icon" aria-hidden="true">▶</span>
+        {episodes.map(ep => {
+          const yt = getYoutubeData(ep.data.guid);
+          const href = yt ? yt.url : `/podcast/#ep-${ep.data.episode}`;
+          const thumb = yt?.thumb ?? ep.data.episodeImage;
+          return (
+            <a href={href} class="episode-card card" target={yt ? '_blank' : undefined} rel={yt ? 'noopener noreferrer' : undefined}>
+              <!-- Thumbnail -->
+              <div class="episode-thumb">
+                {thumb ? (
+                  <img src={thumb} alt="" class="episode-thumb-img" loading="lazy" />
+                ) : (
+                  <div class="episode-thumb-placeholder">
+                    <span class="episode-thumb-num">EP {ep.data.episode}</span>
+                  </div>
+                )}
+                <div class="episode-play-overlay" aria-hidden="true">
+                  <span class="episode-play-btn">▶</span>
                 </div>
-              )}
-              <div class="episode-play-overlay" aria-hidden="true">
-                <span class="episode-play-btn">▶</span>
               </div>
-            </div>
 
-            <!-- Meta -->
-            <div class="episode-meta">
-              <span class="episode-num-label">Episode {ep.data.episode}</span>
-              <time class="episode-date" datetime={ep.data.publishDate.toISOString()}>
-                {formatDate(ep.data.publishDate)}
-              </time>
-            </div>
+              <!-- Meta -->
+              <div class="episode-meta">
+                <span class="episode-num-label">Episode {ep.data.episode}</span>
+                <time class="episode-date" datetime={ep.data.publishDate.toISOString()}>
+                  {formatDate(ep.data.publishDate)}
+                </time>
+              </div>
 
-            <h3 class="episode-title">{ep.data.title}</h3>
+              <h3 class="episode-title">{ep.data.title}</h3>
 
-            {ep.data.guest && (
-              <p class="episode-guest">
-                <span class="episode-guest-label">Guest:</span> {ep.data.guest}
-              </p>
-            )}
+              {ep.data.guest && (
+                <p class="episode-guest">
+                  <span class="episode-guest-label">Guest:</span> {ep.data.guest}
+                </p>
+              )}
 
-            <p class="episode-desc">{ep.data.summary}</p>
-          </a>
-        ))}
+              <p class="episode-desc">{ep.data.summary}</p>
+            </a>
+          );
+        })}
       </div>
     ) : (
       <p class="episodes-empty">Loading episodes…</p>
@@ -150,10 +172,6 @@ function formatDate(date: Date) {
     padding: 0;
   }
 
-  .episode-card:hover .episode-thumb-placeholder {
-    filter: brightness(0.9);
-  }
-
   /* Thumbnail */
   .episode-thumb {
     position: relative;
@@ -167,11 +185,8 @@ function formatDate(date: Date) {
     height: 100%;
     background: linear-gradient(135deg, #E8A317 0%, #F4C557 60%, #D4920F 100%);
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    transition: filter 0.2s;
   }
 
   .episode-thumb-img {
@@ -195,11 +210,6 @@ function formatDate(date: Date) {
     text-transform: uppercase;
   }
 
-  .episode-thumb-icon {
-    font-size: 2.5rem;
-    color: rgba(255,255,255,0.8);
-  }
-
   .episode-play-overlay {
     position: absolute;
     inset: 0;
@@ -211,22 +221,23 @@ function formatDate(date: Date) {
   }
 
   .episode-card:hover .episode-play-overlay {
-    background: rgba(0,0,0,0.15);
+    background: rgba(0,0,0,0.2);
   }
 
   .episode-play-btn {
-    width: 3rem;
-    height: 3rem;
-    background: rgba(255,255,255,0.9);
+    width: 3.5rem;
+    height: 3.5rem;
+    background: rgba(255,255,255,0.92);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: #1A1A1A;
     opacity: 0;
     transform: scale(0.8);
     transition: opacity 0.2s, transform 0.2s;
+    padding-left: 3px;
   }
 
   .episode-card:hover .episode-play-btn {
@@ -268,17 +279,11 @@ function formatDate(date: Date) {
     font-size: 0.8125rem;
     color: #6B7280;
     margin: 0 1.25rem 0.625rem;
-    font-style: normal;
   }
 
   .episode-guest-label {
     font-weight: 600;
     color: #374151;
-  }
-
-  .episode-guest em {
-    font-style: italic;
-    color: #9CA3AF;
   }
 
   .episode-desc {
@@ -291,26 +296,6 @@ function formatDate(date: Date) {
     -webkit-box-orient: vertical;
     overflow: hidden;
     flex: 1;
-  }
-
-  /* Tags */
-  .episode-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.375rem;
-    padding: 0 1.25rem 1.25rem;
-  }
-
-  .episode-tag {
-    font-size: 0.6875rem;
-    font-weight: 600;
-    color: #E8A317;
-    background: #FFF8E7;
-    border: 1px solid rgba(232,163,23,0.25);
-    border-radius: 9999px;
-    padding: 0.2rem 0.625rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
   }
 
   /* Empty / mobile */
