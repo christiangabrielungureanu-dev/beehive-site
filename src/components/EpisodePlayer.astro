@@ -7,28 +7,46 @@ interface Props {
 
 const { guid } = Astro.props;
 const allEpisodes = await getCollection('podcast');
+const allPosts = await getCollection('blog');
+
 const ep = allEpisodes.find(e => e.data.guid === guid);
+const post = allPosts.find(p => p.data.episodeGuids.includes(guid));
+
+function youtubeId(url: string): string | undefined {
+  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([A-Za-z0-9_-]{11})/);
+  return m?.[1];
+}
+
+const ytId = post?.data.youtubeUrl ? youtubeId(post.data.youtubeUrl) : undefined;
 ---
 
 {ep && (
   <figure class="episode-player">
-    <div class="episode-player-meta">
-      {ep.data.episodeImage && (
-        <img src={ep.data.episodeImage} alt="" class="episode-player-cover" loading="lazy" />
-      )}
-      <div class="episode-player-info">
-        <span class="episode-player-tag">Episode {ep.data.episode}{ep.data.duration ? ` · ${ep.data.duration}` : ''}</span>
-        <p class="episode-player-title">{ep.data.title}</p>
+    {ytId ? (
+      <div class="episode-player-video">
+        <iframe
+          src={`https://www.youtube.com/embed/${ytId}`}
+          title={ep.data.title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
       </div>
-    </div>
-    <audio controls preload="none" src={ep.data.audioUrl} class="episode-player-audio">
-      Your browser does not support the audio element.
-    </audio>
+    ) : (
+      <div class="episode-player-meta">
+        {ep.data.episodeImage && (
+          <img src={ep.data.episodeImage} alt="" class="episode-player-cover" loading="lazy" />
+        )}
+        <div class="episode-player-info">
+          <span class="episode-player-tag">Episode {ep.data.episode}{ep.data.duration ? ` · ${ep.data.duration}` : ''}</span>
+          <p class="episode-player-title">{ep.data.title}</p>
+        </div>
+      </div>
+    )}
     <figcaption class="episode-player-platforms">
-      <span>Listen on</span>
+      <span>Also on</span>
       <a href="https://open.spotify.com/show/033l9h1JaE3qhlslHbDS7h" target="_blank" rel="noopener">Spotify</a>
-      <a href="https://podcasts.apple.com/podcast/id1896795747" target="_blank" rel="noopener">Apple</a>
-      <a href="https://www.youtube.com/playlist?list=PL0Gqs3LMAOx3A4XNjP9xZNUHYOa7kh99i" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://podcasts.apple.com/podcast/id1896795747" target="_blank" rel="noopener">Apple Podcasts</a>
     </figcaption>
   </figure>
 )}
@@ -36,18 +54,34 @@ const ep = allEpisodes.find(e => e.data.guid === guid);
 <style>
   .episode-player {
     margin: 2rem 0;
-    padding: 1.25rem;
     background: #1A1A1A;
     border-radius: 1rem;
+    overflow: hidden;
     color: #fff;
   }
 
+  .episode-player-video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+  }
+
+  .episode-player-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  /* Fallback (no YouTube URL) */
   .episode-player-meta {
     display: grid;
     grid-template-columns: 72px 1fr;
     gap: 0.875rem;
     align-items: center;
-    margin-bottom: 0.875rem;
+    padding: 1.25rem 1.25rem 0.875rem;
   }
 
   .episode-player-cover {
@@ -81,14 +115,8 @@ const ep = allEpisodes.find(e => e.data.guid === guid);
     line-height: 1.35;
   }
 
-  .episode-player-audio {
-    width: 100%;
-    height: 36px;
-    display: block;
-  }
-
   .episode-player-platforms {
-    margin-top: 0.875rem;
+    padding: 0.75rem 1.25rem;
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;

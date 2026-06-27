@@ -4,9 +4,20 @@ import SignupForm from '../../components/SignupForm.astro';
 import { getCollection } from 'astro:content';
 
 const allEpisodes = await getCollection('podcast');
+const allPosts = await getCollection('blog');
 const episodes = allEpisodes.sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
 );
+
+function youtubeId(url: string): string | undefined {
+  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([A-Za-z0-9_-]{11})/);
+  return m?.[1];
+}
+
+function getYoutubeId(guid: string): string | undefined {
+  const post = allPosts.find(p => p.data.episodeGuids.includes(guid) && p.data.youtubeUrl);
+  return post?.data.youtubeUrl ? youtubeId(post.data.youtubeUrl) : undefined;
+}
 
 function formatDate(date: Date) {
   return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -77,12 +88,10 @@ const podcastSchema = {
           <h2 class="podcast-episodes-heading">All Episodes</h2>
         </div>
         <div class="podcast-episodes-list">
-          {episodes.map(ep => (
-            <article class="podcast-episode-card" id={`ep-${ep.data.episode}`}>
-              <div class="podcast-episode-meta">
-                {ep.data.episodeImage && (
-                  <img src={ep.data.episodeImage} alt="" class="podcast-episode-cover" loading="lazy" />
-                )}
+          {episodes.map(ep => {
+            const ytId = getYoutubeId(ep.data.guid);
+            return (
+              <article class="podcast-episode-card" id={`ep-${ep.data.episode}`}>
                 <div class="podcast-episode-info">
                   <div class="podcast-episode-meta-row">
                     <span class="podcast-episode-num">Episode {ep.data.episode}</span>
@@ -98,12 +107,24 @@ const podcastSchema = {
                   <h3 class="podcast-episode-title">{ep.data.title}</h3>
                   <p class="podcast-episode-summary">{ep.data.summary}</p>
                 </div>
-              </div>
-              <audio controls preload="none" src={ep.data.audioUrl} class="podcast-episode-audio">
-                Your browser does not support the audio element.
-              </audio>
-            </article>
-          ))}
+                {ytId ? (
+                  <div class="podcast-episode-video">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${ytId}`}
+                      title={ep.data.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                      loading="lazy"
+                    ></iframe>
+                  </div>
+                ) : (
+                  <audio controls preload="none" src={ep.data.audioUrl} class="podcast-episode-audio">
+                    Your browser does not support the audio element.
+                  </audio>
+                )}
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -303,29 +324,30 @@ const podcastSchema = {
     background: #fff;
     border: 1px solid #E5E7EB;
     border-radius: 1rem;
-    padding: 1.5rem;
+    overflow: hidden;
     scroll-margin-top: 6rem;
-  }
-
-  .podcast-episode-meta {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 1.25rem;
-    align-items: center;
-  }
-
-  .podcast-episode-cover {
-    width: 120px;
-    height: 120px;
-    border-radius: 0.625rem;
-    object-fit: cover;
-    display: block;
   }
 
   .podcast-episode-info {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    padding: 1.5rem 1.5rem 0;
+  }
+
+  .podcast-episode-video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+  }
+
+  .podcast-episode-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
   }
 
   .podcast-episode-meta-row {
@@ -368,19 +390,8 @@ const podcastSchema = {
     width: 100%;
     height: 40px;
     display: block;
-  }
-
-  @media (max-width: 540px) {
-    .podcast-episode-meta {
-      grid-template-columns: 1fr;
-    }
-    .podcast-episode-cover {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 1;
-      max-width: 200px;
-      margin: 0 auto;
-    }
+    margin: 0 1.5rem 1.5rem;
+    width: calc(100% - 3rem);
   }
 
   /* About */
