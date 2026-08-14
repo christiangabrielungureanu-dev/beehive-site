@@ -12,7 +12,7 @@ const personSchema = {
   url: new URL('/about', Astro.site).href,
   image: new URL('/cristian-pic.jpg', Astro.site).href,
   jobTitle: 'Founder',
-  description: 'Senior growth marketer ($5M+ ARR in B2B SaaS) and founder of Beehive Book Marketing. Helps experts and founders turn their books into lead engines.',
+  description: 'Founder of Beehive Book Marketing. Connects self-help authors to the podcast hosts, newsletter operators, and editors who reach their readers.',
   sameAs: ['https://www.linkedin.com/in/cristian-ungureanu/'],
   worksFor: {
     '@type': 'Organization',
@@ -24,22 +24,22 @@ const personSchema = {
 
 <BaseLayout
   title="About Cristian Ungureanu — Beehive Book Marketing"
-  description="Cristian Ungureanu is a senior growth marketer ($5M+ ARR in B2B SaaS) who brings funnel-and-attribution thinking to experts and founders publishing books."
+  description="Cristian Ungureanu connects self-help authors to the podcast hosts, newsletter operators, and editors who reach their readers."
 >
   <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   <!-- Hero -->
   <section class="about-hero section">
     <div class="container about-hero-inner">
       <div class="about-hero-content">
-        <span class="eyebrow">The Person Behind the Agency</span>
+        <span class="eyebrow">The Person Behind the Work</span>
         <h1 class="about-hero-heading">
-          I Spent a Decade Growing Tech Companies.<br />
-          <em class="accent">Now I Do It for Books.</em>
+          I spent 8 years getting products in front of people.<br />
+          <em class="accent">Now I do it for books.</em>
         </h1>
         <p class="about-hero-sub">
-          My name is Cristian Ungureanu. I'm a marketer, strategist, and the founder of Beehive
-          Book Marketing — an agency built on one core belief: authors deserve the same
-          sophisticated marketing that the best tech startups use.
+          My name is Cristian Ungureanu. I run Beehive — a PR and placement practice for
+          self-help authors, built on one idea: the hard part isn't writing the book, it's
+          being heard, and that comes down to who you know.
         </p>
       </div>
       <div class="about-hero-photo">
@@ -58,16 +58,16 @@ const personSchema = {
       <div class="about-sidebar">
         <div class="about-stat-stack">
           <div class="about-stat-card">
-            <span class="about-stat-num">$5M+</span>
-            <span class="about-stat-desc">ARR generated for tech clients</span>
+            <span class="about-stat-num">Podcasts</span>
+            <span class="about-stat-desc">Booked on shows your readers already trust</span>
           </div>
           <div class="about-stat-card">
-            <span class="about-stat-num">10+</span>
-            <span class="about-stat-desc">Years in growth marketing</span>
+            <span class="about-stat-num">Newsletters</span>
+            <span class="about-stat-desc">Featured where your readers already subscribe</span>
           </div>
           <div class="about-stat-card">
-            <span class="about-stat-num">2</span>
-            <span class="about-stat-desc">Successful SaaS marketing programs led</span>
+            <span class="about-stat-num">Blogs</span>
+            <span class="about-stat-desc">Placed in front of readers looking for help</span>
           </div>
         </div>
       </div>
@@ -75,21 +75,21 @@ const personSchema = {
       <div class="about-body">
         <h2 class="about-section-heading">My Background</h2>
         <p>
-          Before starting Beehive, I was a senior marketer in the B2B SaaS world. At
-          <strong>QuickMail.io</strong>, I helped build the demand generation engine from the ground
-          up — content, SEO, outbound, paid, and partnerships. At <strong>ScraperAPI.com</strong>,
-          I led growth marketing strategy and helped the team scale to significant ARR.
+          Before Beehive, I worked in marketing across hospitality and SaaS — most recently at
+          <strong>QuickMail.io</strong> and <strong>ScraperAPI.com</strong>, where I built demand
+          generation from the ground up: content, SEO, outbound, paid, partnerships.
         </p>
         <p>
-          The common thread across every company I worked with: growth happens when you combine
-          a clear positioning, a deep understanding of the buyer, and a distribution system that
-          compounds over time. Not one-off tactics. Not vanity metrics. A machine.
+          The lesson that carried over wasn't a framework. It was that distribution is a
+          relationship problem long before it's a tactics problem. The companies that grew were
+          the ones where somebody knew everybody — where a launch had ten people ready to talk
+          about it before it happened.
         </p>
         <p>
-          When I started paying attention to the book marketing industry, I was genuinely shocked
-          at how far behind the playbook is. Most authors are still relying on launch-week
-          Amazon ranking tricks and cold pitching journalists — while the best B2B SaaS companies
-          have solved this problem years ago with content, community, and email.
+          When I started paying attention to self-help publishing, that's exactly what was
+          missing. Authors were writing to nobody, pitching cold, and getting ignored — while the
+          same handful of shows and newsletters kept booking guests through people they already
+          trusted.
         </p>
         <p>
           That gap is where Beehive lives.
@@ -103,40 +103,41 @@ const personSchema = {
     <div class="container">
       <div class="about-philosophy-header">
         <span class="eyebrow">How I Think</span>
-        <h2 class="about-section-heading">The Beehive Philosophy</h2>
+        <h2 class="about-section-heading">How I Work</h2>
       </div>
 
       <div class="philosophy-grid">
         <div class="philosophy-card">
-          <span class="philosophy-icon">🎯</span>
-          <h3>Positioning before tactics</h3>
-          <p>
-            If you don't know exactly who your book is for and why they should care, no amount of
-            ad spend or PR will fix it. We start every engagement by nailing the positioning.
-          </p>
-        </div>
-        <div class="philosophy-card">
-          <span class="philosophy-icon">🌱</span>
-          <h3>Compounding beats spiking</h3>
-          <p>
-            A launch week spike is nice. An email list that grows every month and an SEO presence
-            that drives sales two years after publication — that's what we're building toward.
-          </p>
-        </div>
-        <div class="philosophy-card">
-          <span class="philosophy-icon">📊</span>
-          <h3>Data-informed, not data-obsessed</h3>
-          <p>
-            We track what matters and ignore what doesn't. Sales, email growth, and reader
-            engagement tell the real story. Amazon rank on a Tuesday does not.
-          </p>
-        </div>
-        <div class="philosophy-card">
           <span class="philosophy-icon">🤝</span>
-          <h3>Authors are partners, not clients</h3>
+          <h3>Relationships before pitches</h3>
           <p>
-            Your book is your business. We treat it that way. You'll always know what we're doing,
-            why we're doing it, and what the results are.
+            I don't blast lists. I know the hosts I pitch, I know what they book and what they
+            turn down, and I don't burn that by sending them someone who's wrong for their
+            audience.
+          </p>
+        </div>
+        <div class="philosophy-card">
+          <span class="philosophy-icon">📖</span>
+          <h3>The right readers, not the most readers</h3>
+          <p>
+            A small show with the exact audience for your book will do more for you than a big
+            one with a general one. Reach that doesn't match is just noise.
+          </p>
+        </div>
+        <div class="philosophy-card">
+          <span class="philosophy-icon">✍️</span>
+          <h3>Tailored, never templated</h3>
+          <p>
+            Every pitch is written for the specific show — its format, its audience, what the
+            host actually books. That's what gets a yes.
+          </p>
+        </div>
+        <div class="philosophy-card">
+          <span class="philosophy-icon">📬</span>
+          <h3>You'll always know where things stand</h3>
+          <p>
+            Clear updates on what's been pitched, what's booked, and what's coming up next.
+            No mystery, no silence.
           </p>
         </div>
       </div>
@@ -147,32 +148,32 @@ const personSchema = {
   <section class="section about-why">
     <div class="container about-why-inner">
       <div class="about-why-content">
-        <span class="eyebrow">Why Books</span>
+        <span class="eyebrow">Why This</span>
         <h2 class="about-section-heading">
-          Why I Left Tech to Work with Authors
+          Why Self-Help
         </h2>
         <p>
-          The honest answer: books matter in a way that SaaS products don't. A well-marketed book
-          can change how someone thinks about their career, their family, their business. It can
-          give an author a platform that lasts decades.
+          The honest answer: these books matter in a way most books don't. Someone picks up a
+          self-help book at a genuinely bad moment — a marriage coming apart, a career they can't
+          stand, a habit they can't break — and occasionally the right one changes what happens
+          next.
         </p>
         <p>
-          But most authors — even brilliant ones, even ones with important ideas — never get that
-          reach. Not because their books aren't good enough. Because nobody showed them how to
-          market them.
+          But most of them never reach that person. Not because they aren't good. Because nobody
+          showed the author how to be heard, or introduced them to the people who could help.
         </p>
         <p>
-          That's the problem I want to solve. I want to be the person who helps the author with
-          the genuinely great book find the readers who need it.
+          That's the problem I want to solve. I want to be the person a self-help author calls
+          when they've written something worth reading and don't know who to tell.
         </p>
         <a href="/contact" class="btn-primary" style="display:inline-flex;margin-top:1.5rem;">
-          Let's Talk About Your Book →
+          Let's talk about your book →
         </a>
       </div>
       <div class="about-why-quote">
         <blockquote class="about-pullquote">
           <span class="about-pullquote-mark" aria-hidden="true">&ldquo;</span>
-          <p>The best book marketing doesn't feel like marketing. It feels like the right book finding the right reader at the right time.</p>
+          <p>The hardest part of a self-help book isn't writing it. It's getting it to the person who needed it that week.</p>
           <footer>
             <span class="about-pullquote-name">Cristian Ungureanu</span>
             <span class="about-pullquote-title">Founder, Beehive Book Marketing</span>
@@ -193,22 +194,22 @@ const personSchema = {
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #E8A317;
+    color: #E0941A;
     margin-bottom: 0.625rem;
   }
 
-  .accent { font-style: italic; color: #E8A317; }
+  .accent { font-style: italic; color: #E0941A; }
 
   .about-section-heading {
     font-family: var(--font-heading);
     font-size: clamp(1.625rem, 2.5vw, 2.25rem);
     font-weight: 700;
-    color: #1A1A1A;
+    color: #3A3530;
     margin: 0 0 1.5rem;
   }
 
   /* Hero */
-  .about-hero { background: linear-gradient(135deg, #FFFDF7 0%, #FFF8E7 100%); }
+  .about-hero { background: linear-gradient(135deg, #FFFDF7 0%, #FFF8EC 100%); }
 
   .about-hero-inner {
     display: grid;
@@ -221,7 +222,7 @@ const personSchema = {
     font-family: var(--font-heading);
     font-size: clamp(2rem, 3.5vw, 3rem);
     font-weight: 700;
-    color: #1A1A1A;
+    color: #3A3530;
     line-height: 1.2;
     margin: 0.5rem 0 1.25rem;
   }
@@ -239,7 +240,7 @@ const personSchema = {
   .about-photo-placeholder {
     aspect-ratio: 4/5;
     border-radius: 1.5rem;
-    background: linear-gradient(145deg, #E8A317 0%, #F4C557 50%, #D4920F 100%);
+    background: linear-gradient(145deg, #E0941A 0%, #F9D14B 50%, #C6820E 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -280,14 +281,14 @@ const personSchema = {
   .about-photo-name {
     font-family: var(--font-script);
     font-size: 1.375rem;
-    color: #1A1A1A;
+    color: #3A3530;
   }
 
   .about-photo-title {
     font-size: 0.625rem;
     font-weight: 700;
     letter-spacing: 0.1em;
-    color: #E8A317;
+    color: #E0941A;
     text-transform: uppercase;
   }
 
@@ -310,8 +311,8 @@ const personSchema = {
   }
 
   .about-stat-card {
-    background: #FFF8E7;
-    border: 1px solid rgba(232,163,23,0.2);
+    background: #FFF8EC;
+    border: 1px solid rgba(224,148,26,0.2);
     border-radius: 0.875rem;
     padding: 1.25rem;
   }
@@ -319,9 +320,9 @@ const personSchema = {
   .about-stat-num {
     display: block;
     font-family: var(--font-heading);
-    font-size: 2rem;
+    font-size: 1.375rem;
     font-weight: 700;
-    color: #E8A317;
+    color: #E0941A;
     margin-bottom: 0.25rem;
   }
 
@@ -338,10 +339,10 @@ const personSchema = {
     margin: 0 0 1.25rem;
   }
 
-  .about-body strong { color: #1A1A1A; font-weight: 600; }
+  .about-body strong { color: #3A3530; font-weight: 600; }
 
   /* Philosophy */
-  .about-philosophy { background: #FDF8F0; }
+  .about-philosophy { background: #FFF8EC; }
 
   .about-philosophy-header {
     text-align: center;
@@ -367,7 +368,7 @@ const personSchema = {
     font-family: var(--font-heading);
     font-size: 1.125rem;
     font-weight: 700;
-    color: #1A1A1A;
+    color: #3A3530;
     margin: 0 0 0.625rem;
   }
 
@@ -398,7 +399,7 @@ const personSchema = {
   /* Pull quote */
   .about-pullquote {
     position: relative;
-    background: #1A1A1A;
+    background: #3A3530;
     border-radius: 1.25rem;
     padding: 2.5rem 2rem 2rem;
     margin: 0;
@@ -410,7 +411,7 @@ const personSchema = {
     left: 1.5rem;
     font-family: Georgia, serif;
     font-size: 4rem;
-    color: #E8A317;
+    color: #E0941A;
     opacity: 0.4;
     line-height: 1;
   }
@@ -433,7 +434,7 @@ const personSchema = {
   .about-pullquote-name {
     font-family: var(--font-script);
     font-size: 1.25rem;
-    color: #E8A317;
+    color: #E0941A;
   }
 
   .about-pullquote-title {

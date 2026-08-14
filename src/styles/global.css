@@ -4,11 +4,11 @@
 /* ─── Theme Tokens (Tailwind v4 CSS-first config) ────────────── */
 @theme {
   /* Brand colors */
-  --color-honey:        #E8A317;
-  --color-honey-dark:   #D4920F;
-  --color-cream:        #FFF8E7;
-  --color-parchment:    #FDF8F0;
-  --color-charcoal:     #1A1A1A;
+  --color-honey:        #E0941A;
+  --color-honey-dark:   #C6820E;
+  --color-cream:        #FFF8EC;
+  --color-parchment:    #FFF8EC;
+  --color-charcoal:     #3A3530;
   --color-muted:        #6B7280;
   --color-border:       #E5E7EB;
 
@@ -23,7 +23,7 @@
 
 html {
   font-family: var(--font-body);
-  color: #1A1A1A;
+  color: #3A3530;
   scroll-behavior: smooth;
 }
 
@@ -48,7 +48,7 @@ h1, h2, h3 {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
-  background: #E8A317;
+  background: #E0941A;
   color: #fff;
   font-family: var(--font-body);
   font-weight: 600;
@@ -61,7 +61,7 @@ h1, h2, h3 {
 }
 
 .btn-primary:hover {
-  background: #D4920F;
+  background: #C6820E;
   transform: translateY(-1px);
 }
 
@@ -70,20 +70,20 @@ h1, h2, h3 {
   align-items: center;
   gap: 0.375rem;
   background: transparent;
-  color: #1A1A1A;
+  color: #3A3530;
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.9375rem;
   padding: 0.75rem 1.5rem;
   border-radius: 9999px;
-  border: 2px solid #1A1A1A;
+  border: 2px solid #3A3530;
   text-decoration: none;
   transition: border-color 0.2s, color 0.2s, transform 0.15s;
 }
 
 .btn-outline:hover {
-  border-color: #E8A317;
-  color: #E8A317;
+  border-color: #E0941A;
+  color: #E0941A;
   transform: translateY(-1px);
 }
 
@@ -104,8 +104,8 @@ h1, h2, h3 {
 }
 
 .btn-outline-light:hover {
-  border-color: #E8A317;
-  color: #E8A317;
+  border-color: #E0941A;
+  color: #E0941A;
   transform: translateY(-1px);
 }
 

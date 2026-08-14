@@ -60,7 +60,7 @@ const articleSchema = {
   publisher: {
     '@type': 'Organization',
     name: 'Beehive Book Marketing',
-    logo: { '@type': 'ImageObject', url: new URL('/images/logo-nav.png', Astro.site).href },
+    logo: { '@type': 'ImageObject', url: new URL('/images/logo.png', Astro.site).href },
   },
   mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
 };
@@ -175,9 +175,9 @@ const faqSchema = post.data.faq?.length ? {
             <span class="author-card-eyebrow">Written by</span>
             <a href="/about" class="author-card-name">Cristian Ungureanu</a>
             <p class="author-card-bio">
-              Senior growth marketer ($5M+ ARR in B2B SaaS) and founder of Beehive Book Marketing.
-              I help experts and founders turn their books into lead engines — applying the same
-              funnel-and-attribution thinking that scales tech companies.
+              Founder of Beehive Book Marketing. I get self-help authors in front of audiences
+              that already exist — booked on podcasts, featured in newsletters, and introduced
+              to the people who can help them reach readers.
             </p>
           </div>
         </aside>
@@ -191,7 +191,7 @@ const faqSchema = post.data.faq?.length ? {
 <style>
   /* ── Header ─────────────────────────────────── */
   .blog-post-header {
-    background: linear-gradient(135deg, #FFFDF7 0%, #FFF8E7 100%);
+    background: linear-gradient(135deg, #FFFDF7 0%, #FFF8EC 100%);
     padding: 3rem 0 2.5rem;
   }
 
@@ -205,7 +205,7 @@ const faqSchema = post.data.faq?.length ? {
     transition: color 0.15s;
   }
 
-  .breadcrumb-link:hover { color: #E8A317; }
+  .breadcrumb-link:hover { color: #E0941A; }
 
   .blog-post-meta {
     display: flex;
@@ -217,13 +217,13 @@ const faqSchema = post.data.faq?.length ? {
     margin-bottom: 0.875rem;
   }
 
-  .blog-post-meta strong { color: #1A1A1A; font-weight: 600; }
+  .blog-post-meta strong { color: #3A3530; font-weight: 600; }
 
   .blog-post-heading {
     font-family: var(--font-heading);
     font-size: clamp(1.875rem, 3.5vw, 2.875rem);
     font-weight: 700;
-    color: #1A1A1A;
+    color: #3A3530;
     margin: 0 0 1rem;
     line-height: 1.2;
     letter-spacing: -0.01em;
@@ -239,7 +239,7 @@ const faqSchema = post.data.faq?.length ? {
 
   /* ── Guest card ──────────────────────────────── */
   .blog-guest-band {
-    background: #1A1A1A;
+    background: #3A3530;
     padding: 1.25rem 0;
   }
 
@@ -256,7 +256,7 @@ const faqSchema = post.data.faq?.length ? {
     height: 64px;
     border-radius: 50%;
     overflow: hidden;
-    background: linear-gradient(135deg, #E8A317, #F4C557);
+    background: linear-gradient(135deg, #E0941A, #F9D14B);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -291,7 +291,7 @@ const faqSchema = post.data.faq?.length ? {
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #E8A317;
+    color: #E0941A;
   }
 
   .guest-card-name {
@@ -316,9 +316,9 @@ const faqSchema = post.data.faq?.length ? {
     gap: 0.4rem;
     font-size: 0.8125rem;
     font-weight: 600;
-    color: #E8A317;
+    color: #E0941A;
     text-decoration: none;
-    border: 1px solid rgba(232,163,23,0.35);
+    border: 1px solid rgba(224,148,26,0.35);
     border-radius: 2rem;
     padding: 0.4rem 0.875rem;
     transition: background 0.15s, border-color 0.15s;
@@ -326,8 +326,8 @@ const faqSchema = post.data.faq?.length ? {
   }
 
   .guest-card-link:hover {
-    background: rgba(232,163,23,0.1);
-    border-color: #E8A317;
+    background: rgba(224,148,26,0.1);
+    border-color: #E0941A;
   }
 
   /* ── Body ────────────────────────────────────── */
@@ -351,7 +351,7 @@ const faqSchema = post.data.faq?.length ? {
     font-family: var(--font-heading);
     font-size: 1.625rem;
     font-weight: 700;
-    color: #1A1A1A;
+    color: #3A3530;
     margin: 3rem 0 1.125rem;
     line-height: 1.3;
     letter-spacing: -0.01em;
@@ -361,7 +361,7 @@ const faqSchema = post.data.faq?.length ? {
     font-family: var(--font-heading);
     font-size: 1.25rem;
     font-weight: 700;
-    color: #1A1A1A;
+    color: #3A3530;
     margin: 2.25rem 0 0.875rem;
   }
 
@@ -374,25 +374,25 @@ const faqSchema = post.data.faq?.length ? {
 
   :global(.prose li) { margin: 0.5rem 0; }
 
-  :global(.prose strong) { color: #1A1A1A; font-weight: 600; }
+  :global(.prose strong) { color: #3A3530; font-weight: 600; }
 
   :global(.prose a) {
-    color: #C8860E;
+    color: #C6820E;
     text-decoration: none;
-    border-bottom: 1px solid rgba(200,134,14,0.35);
+    border-bottom: 1px solid rgba(198,130,14,0.35);
     transition: border-color 0.15s;
   }
 
-  :global(.prose a:hover) { border-bottom-color: #C8860E; }
+  :global(.prose a:hover) { border-bottom-color: #C6820E; }
 
   /* ── Blockquote (pull-quote card style) ───────── */
   :global(.prose blockquote) {
     position: relative;
     margin: 2.5rem 0;
     padding: 1.75rem 1.75rem 1.75rem 2.5rem;
-    background: #FFF8E7;
+    background: #FFF8EC;
     border: none;
-    border-left: 4px solid #E8A317;
+    border-left: 4px solid #E0941A;
     border-radius: 0 1rem 1rem 0;
     font-style: normal;
   }
@@ -404,7 +404,7 @@ const faqSchema = post.data.faq?.length ? {
     left: 1rem;
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 4.5rem;
-    color: #E8A317;
+    color: #E0941A;
     opacity: 0.25;
     line-height: 1;
     pointer-events: none;
@@ -414,7 +414,7 @@ const faqSchema = post.data.faq?.length ? {
     font-family: var(--font-heading);
     font-size: 1.125rem;
     font-style: italic;
-    color: #1A1A1A;
+    color: #3A3530;
     margin: 0;
     line-height: 1.65;
     position: relative;
@@ -429,8 +429,8 @@ const faqSchema = post.data.faq?.length ? {
     gap: 1.25rem;
     margin-top: 4rem;
     padding: 1.75rem;
-    background: #FDF8F0;
-    border: 1px solid rgba(232,163,23,0.2);
+    background: #FFF8EC;
+    border: 1px solid rgba(224,148,26,0.2);
     border-radius: 1.25rem;
   }
 
@@ -442,7 +442,7 @@ const faqSchema = post.data.faq?.length ? {
     object-fit: cover;
     object-position: top;
     display: block;
-    border: 3px solid #E8A317;
+    border: 3px solid #E0941A;
   }
 
   .author-card-body {
@@ -456,21 +456,21 @@ const faqSchema = post.data.faq?.length ? {
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #E8A317;
+    color: #E0941A;
   }
 
   .author-card-name {
     font-family: var(--font-heading);
     font-size: 1.0625rem;
     font-weight: 700;
-    color: #1A1A1A;
+    color: #3A3530;
     text-decoration: none;
     border-bottom: none;
     transition: color 0.15s;
     display: inline;
   }
 
-  .author-card-name:hover { color: #E8A317; }
+  .author-card-name:hover { color: #E0941A; }
 
   .author-card-bio {
     font-size: 0.9375rem;

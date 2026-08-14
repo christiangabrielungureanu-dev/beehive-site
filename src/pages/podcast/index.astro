@@ -28,7 +28,7 @@ const podcastSchema = {
   '@type': 'PodcastSeries',
   name: 'The Hive Mind Podcast',
   description:
-    'Conversations with authors, marketers, and operators on turning a book into a business asset — pipeline, deals, and paid stages.',
+    'Conversations on self-help book marketing — with authors on how they reached readers, and the hosts and editors who decide who gets heard.',
   url: new URL('/podcast/', Astro.site).href,
   webFeed: 'https://api.riverside.com/hosting/uEOr9jmt.rss',
   image: new URL('/og-abstract.png', Astro.site).href,
@@ -37,8 +37,8 @@ const podcastSchema = {
 ---
 
 <BaseLayout
-  title="The Hive Mind Podcast — Book Marketing for Experts & Founders"
-  description="The Hive Mind: conversations on turning a book into a business asset. Listen on Spotify, Apple Podcasts, or YouTube. New episodes every two weeks."
+  title="The Hive Mind — Self-Help Book Marketing"
+  description="The Hive Mind: conversations on self-help book marketing, with authors on how they reached readers and the hosts and editors who decide who gets heard. Listen on Spotify, Apple Podcasts, or YouTube."
 >
   <script type="application/ld+json" set:html={JSON.stringify(podcastSchema)} />
 
@@ -50,10 +50,11 @@ const podcastSchema = {
           <span class="podcast-badge-dot" aria-hidden="true"></span>
           New Episodes Every Two Weeks
         </span>
-        <h1 class="podcast-hero-heading">The Hive Mind Podcast</h1>
+        <h1 class="podcast-hero-heading">The Hive Mind</h1>
         <p class="podcast-hero-sub">
-          Real conversations with authors, marketers, and operators on turning a book into a
-          business asset — pipeline, deal velocity, and the keynote circuit.
+          Conversations on self-help book marketing — with authors on how they actually reached
+          readers, and with the hosts, newsletter operators, and editors on the other side of
+          the pitch.
         </p>
 
         <div class="podcast-platforms">
@@ -139,10 +140,10 @@ const podcastSchema = {
       </div>
       <div class="podcast-about-grid">
         {[
-          { icon: '🎯', title: 'No fluff, only tactics', desc: 'Every episode is built around one question: what actually works? Guests share real numbers, real campaigns, and real lessons.' },
-          { icon: '📚', title: 'For business-minded authors', desc: 'Founders, consultants, and experts — self-published or traditional, debut or established — who want their book to drive leads, close deals, and book stages.' },
-          { icon: '🔁', title: 'Frameworks that compound', desc: 'Funnel, attribution, and conversion thinking from SaaS, applied to books and the businesses behind them.' },
-          { icon: '🤝', title: 'Guests who\'ve done it', desc: 'Not theorists. Authors, marketers, and operators who have turned books into pipeline, speaking deals, and premium clients.' },
+          { icon: '🎙️', title: 'Both sides of the pitch', desc: 'Authors talking about what worked, and hosts and editors talking about what they actually book. The second half is the part nobody publishes.' },
+          { icon: '📚', title: 'For self-help authors', desc: 'Writers with something worth reading who want it to reach the people it was written for. Authors share what actually worked to get their book in front of readers.' },
+          { icon: '🤝', title: 'Practitioners, not theorists', desc: 'Everyone on this show has either published a book or decided who gets on a platform. No commentary from the sidelines.' },
+          { icon: '🔍', title: 'Specific over general', desc: 'What got a yes, what got an instant no, what they\'d do differently. Real examples or nothing.' },
         ].map(item => (
           <div class="podcast-about-card">
             <span class="podcast-about-icon">{item.icon}</span>
@@ -179,13 +180,13 @@ const podcastSchema = {
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #E8A317;
+    color: #E0941A;
     margin-bottom: 0.625rem;
   }
 
   /* Hero */
   .podcast-hero {
-    background: #1A1A1A;
+    background: #3A3530;
     padding: 4rem 0;
   }
 
@@ -200,9 +201,9 @@ const podcastSchema = {
     gap: 0.5rem;
     font-size: 0.8125rem;
     font-weight: 600;
-    color: #E8A317;
-    background: rgba(232,163,23,0.1);
-    border: 1px solid rgba(232,163,23,0.2);
+    color: #E0941A;
+    background: rgba(224,148,26,0.1);
+    border: 1px solid rgba(224,148,26,0.2);
     padding: 0.375rem 0.875rem;
     border-radius: 9999px;
     margin-bottom: 1.25rem;
@@ -211,7 +212,7 @@ const podcastSchema = {
   .podcast-badge-dot {
     width: 6px;
     height: 6px;
-    background: #E8A317;
+    background: #E0941A;
     border-radius: 50%;
     flex-shrink: 0;
     animation: blink 2s ease-in-out infinite;
@@ -273,8 +274,8 @@ const podcastSchema = {
   }
 
   a.podcast-platform:hover {
-    color: #E8A317;
-    border-color: rgba(232,163,23,0.5);
+    color: #E0941A;
+    border-color: rgba(224,148,26,0.5);
   }
 
   /* Hero signup */
@@ -294,7 +295,7 @@ const podcastSchema = {
   }
 
   /* Episode list */
-  .podcast-episodes { background: #FDF8F0; }
+  .podcast-episodes { background: #FFF8EC; }
 
   .podcast-episodes-header {
     text-align: center;
@@ -305,7 +306,7 @@ const podcastSchema = {
     font-family: var(--font-heading);
     font-size: clamp(1.875rem, 3vw, 2.5rem);
     font-weight: 700;
-    color: #1A1A1A;
+    color: #3A3530;
     margin: 0;
   }
 
@@ -361,7 +362,7 @@ const podcastSchema = {
 
   .podcast-episode-num {
     font-weight: 700;
-    color: #E8A317;
+    color: #E0941A;
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
@@ -370,7 +371,7 @@ const podcastSchema = {
     font-family: var(--font-heading);
     font-size: 1.125rem;
     font-weight: 700;
-    color: #1A1A1A;
+    color: #3A3530;
     margin: 0;
     line-height: 1.35;
   }
@@ -403,7 +404,7 @@ const podcastSchema = {
     font-family: var(--font-heading);
     font-size: clamp(1.875rem, 3vw, 2.5rem);
     font-weight: 700;
-    color: #1A1A1A;
+    color: #3A3530;
     margin: 0;
   }
 
@@ -415,8 +416,8 @@ const podcastSchema = {
 
   .podcast-about-card {
     padding: 1.5rem;
-    background: #FDF8F0;
-    border: 1px solid rgba(232,163,23,0.15);
+    background: #FFF8EC;
+    border: 1px solid rgba(224,148,26,0.15);
     border-radius: 1rem;
   }
 
@@ -426,7 +427,7 @@ const podcastSchema = {
     font-family: var(--font-heading);
     font-size: 1.0625rem;
     font-weight: 700;
-    color: #1A1A1A;
+    color: #3A3530;
     margin: 0 0 0.5rem;
   }
 
@@ -439,7 +440,7 @@ const podcastSchema = {
 
   /* Bottom CTA */
   .podcast-bottom-cta {
-    background: #1A1A1A;
+    background: #3A3530;
     padding: 5rem 0;
     text-align: center;
   }
