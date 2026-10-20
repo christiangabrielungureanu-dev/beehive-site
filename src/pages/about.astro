@@ -12,7 +12,7 @@ const personSchema = {
   url: new URL('/about', Astro.site).href,
   image: new URL('/cristian-pic.jpg', Astro.site).href,
   jobTitle: 'Founder',
-  description: 'Founder of Beehive Book Marketing. Connects self-help authors to the podcast hosts, newsletter operators, and editors who reach their readers.',
+  description: 'Founder of Beehive Book Marketing. Helps self-help authors market, publish, and distribute their books.',
   sameAs: ['https://www.linkedin.com/in/cristian-ungureanu/'],
   worksFor: {
     '@type': 'Organization',
@@ -24,7 +24,7 @@ const personSchema = {
 
 <BaseLayout
   title="About Cristian Ungureanu — Beehive Book Marketing"
-  description="Cristian Ungureanu connects self-help authors to the podcast hosts, newsletter operators, and editors who reach their readers."
+  description="Cristian Ungureanu helps self-help authors market, publish, and distribute their books so they reach the readers they were written for."
 >
   <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   <!-- Hero -->
@@ -37,9 +37,9 @@ const personSchema = {
           <em class="accent">Now I do it for books.</em>
         </h1>
         <p class="about-hero-sub">
-          My name is Cristian Ungureanu. I run Beehive — a PR and placement practice for
+          My name is Cristian Ungureanu. I run Beehive — marketing and publishing help for
           self-help authors, built on one idea: the hard part isn't writing the book, it's
-          being heard, and that comes down to who you know.
+          getting it to the readers it was written for.
         </p>
       </div>
       <div class="about-hero-photo">
@@ -58,16 +58,16 @@ const personSchema = {
       <div class="about-sidebar">
         <div class="about-stat-stack">
           <div class="about-stat-card">
-            <span class="about-stat-num">Podcasts</span>
-            <span class="about-stat-desc">Booked on shows your readers already trust</span>
+            <span class="about-stat-num">Strategy</span>
+            <span class="about-stat-desc">A marketing plan built for your book and its readers</span>
           </div>
           <div class="about-stat-card">
-            <span class="about-stat-num">Newsletters</span>
-            <span class="about-stat-desc">Featured where your readers already subscribe</span>
+            <span class="about-stat-num">Support</span>
+            <span class="about-stat-desc">Weekly goals, regular calls, and help on WhatsApp</span>
           </div>
           <div class="about-stat-card">
-            <span class="about-stat-num">Blogs</span>
-            <span class="about-stat-desc">Placed in front of readers looking for help</span>
+            <span class="about-stat-num">Publishing</span>
+            <span class="about-stat-desc">From finished manuscript to the stores your readers use</span>
           </div>
         </div>
       </div>
@@ -87,9 +87,8 @@ const personSchema = {
         </p>
         <p>
           When I started paying attention to self-help publishing, that's exactly what was
-          missing. Authors were writing to nobody, pitching cold, and getting ignored — while the
-          same handful of shows and newsletters kept booking guests through people they already
-          trusted.
+          missing. Good books, and authors with no clear plan for getting them read — trying
+          everything at once or nothing at all, and usually doing it alone.
         </p>
         <p>
           That gap is where Beehive lives.
@@ -108,36 +107,36 @@ const personSchema = {
 
       <div class="philosophy-grid">
         <div class="philosophy-card">
-          <span class="philosophy-icon">🤝</span>
-          <h3>Relationships before pitches</h3>
+          <span class="philosophy-icon">🗺️</span>
+          <h3>A plan built for your book</h3>
           <p>
-            I don't blast lists. I know the hosts I pitch, I know what they book and what they
-            turn down, and I don't burn that by sending them someone who's wrong for their
-            audience.
+            No templates. The strategy comes from your book, your readers, and what you've
+            already tried, so you don't spend months on channels that were never going to fit.
           </p>
         </div>
         <div class="philosophy-card">
           <span class="philosophy-icon">📖</span>
           <h3>The right readers, not the most readers</h3>
           <p>
-            A small show with the exact audience for your book will do more for you than a big
-            one with a general one. Reach that doesn't match is just noise.
+            A small audience that's exactly right for your book will do more for you than a big
+            one that isn't. Reach that doesn't match is just noise.
           </p>
         </div>
         <div class="philosophy-card">
-          <span class="philosophy-icon">✍️</span>
-          <h3>Tailored, never templated</h3>
+          <span class="philosophy-icon">🐝</span>
+          <h3>Authors help authors</h3>
           <p>
-            Every pitch is written for the specific show — its format, its audience, what the
-            host actually books. That's what gets a yes.
+            The strongest promotion for a self-help book is another self-help author with the
+            same readers. The author group is there so you can share what's working and promote
+            each other's books.
           </p>
         </div>
         <div class="philosophy-card">
           <span class="philosophy-icon">📬</span>
-          <h3>You'll always know where things stand</h3>
+          <h3>You'll always know what's next</h3>
           <p>
-            Clear updates on what's been pitched, what's booked, and what's coming up next.
-            No mystery, no silence.
+            Weekly goals, regular check-ins, and a call every two weeks. No guessing what to
+            work on, and no going quiet.
           </p>
         </div>
       </div>

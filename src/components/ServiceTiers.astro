@@ -1,42 +1,39 @@
 ---
-const phases = [
+const groups = [
   {
-    icon: '🎙️',
-    name: 'Placements',
-    tagline: 'Get booked where your readers already are',
-    description:
-      'I find the podcasts, newsletters, and blogs your ideal readers already follow — and get you booked and featured there, with a pitch written specifically for each one.',
-    features: [
-      'Podcast interviews in front of your ideal audience',
-      'Newsletter features and swaps',
-      'Blog and guest column placements',
-      'Prep brief before every recording',
-      'Pitching, scheduling, and follow-up handled',
+    icon: '🗺️',
+    name: 'Marketing',
+    tagline: 'A plan built for your book, and help carrying it out',
+    href: '/services#marketing',
+    options: [
+      {
+        name: 'Audit & Strategy',
+        description:
+          'I review everything you\'re doing to promote the book now, build a strategy around the readers it\'s for, and walk you through it on a call.',
+      },
+      {
+        name: 'Assisted DIY',
+        description:
+          'The same strategy, plus weekly goals, check-ins, a call every two weeks, WhatsApp support, and a group of self-help authors to promote with.',
+      },
     ],
   },
   {
-    icon: '🤝',
-    name: 'Introductions',
-    tagline: 'The right people for your book, fast',
-    description:
-      'Need a publicist, an ads specialist, a cover designer, or an author whose audience overlaps with yours? I make the introduction — so you skip months of figuring out who\'s real.',
-    features: [
-      'Warm intros to vetted specialists',
-      'Authors with overlapping audiences',
-      'Any referral relationship disclosed upfront',
-    ],
-  },
-  {
-    icon: '🐝',
-    name: 'The Network',
-    tagline: 'Get promoted by authors with your readers',
-    description:
-      'The strongest promotion for a self-help book is another self-help author with the same readers. Swap newsletters, guest on each other\'s platforms, and have support ready when the next book lands.',
-    features: [
-      'Newsletter and audience swaps',
-      'Guest spots on each other\'s platforms',
-      'Launch support from authors who\'ve done it',
-      'Promotion only — never review exchanges',
+    icon: '📚',
+    name: 'Publishing & Distribution',
+    tagline: 'Get the book out, everywhere your readers buy',
+    href: '/services#publishing',
+    options: [
+      {
+        name: 'Assisted DIY',
+        description:
+          'You publish it yourself, with a guide on platforms, listings, and pricing, and a review of every listing before it goes live.',
+      },
+      {
+        name: 'Done-for-you',
+        description:
+          'Send me the finished manuscript. I handle the setup and get the book listed in the stores your readers use.',
+      },
     ],
   },
 ];
@@ -47,29 +44,32 @@ const phases = [
     <!-- Section header -->
     <div class="services-header">
       <span class="section-eyebrow">What I Do</span>
-      <h2 class="services-heading">Three ways to get your book in front of new readers.</h2>
+      <h2 class="services-heading">Two ways I help your book reach its readers.</h2>
       <p class="services-sub">
-        Every one points at the same outcome: your book in front of the audiences most likely to buy it, love it, and talk about it.
+        Market the book with a strategy built for it, or get it published first. Or both.
       </p>
     </div>
 
-    <!-- Phases grid -->
+    <!-- Groups grid -->
     <div class="services-grid">
-      {phases.map(phase => (
+      {groups.map(group => (
         <div class="service-card card">
-          <div class="service-icon" aria-hidden="true">{phase.icon}</div>
-          <h3 class="service-name">{phase.name}</h3>
-          <p class="service-tagline">{phase.tagline}</p>
-          <p class="service-desc">{phase.description}</p>
+          <div class="service-icon" aria-hidden="true">{group.icon}</div>
+          <h3 class="service-name">{group.name}</h3>
+          <p class="service-tagline">{group.tagline}</p>
 
-          <ul class="service-features">
-            {phase.features.map(f => (
-              <li class="service-feature">
-                <span class="service-feature-check" aria-hidden="true">✓</span>
-                {f}
+          <ul class="service-options">
+            {group.options.map(option => (
+              <li class="service-option">
+                <span class="service-option-name">{option.name}</span>
+                <p class="service-option-desc">{option.description}</p>
               </li>
             ))}
           </ul>
+
+          <a href={group.href} class="service-link">
+            See what's included <span aria-hidden="true">→</span>
+          </a>
         </div>
       ))}
     </div>
@@ -126,7 +126,7 @@ const phases = [
   /* Grid */
   .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
     align-items: stretch;
   }
@@ -160,37 +160,45 @@ const phases = [
     margin: 0 0 0.875rem;
   }
 
-  .service-desc {
-    font-size: 0.9375rem;
-    line-height: 1.65;
-    color: #4B5563;
-    margin: 0 0 1.5rem;
-  }
-
-  /* Features */
-  .service-features {
+  /* Options */
+  .service-options {
     list-style: none;
-    margin: 0;
+    margin: 0 0 1.5rem;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.625rem;
+    gap: 1rem;
   }
 
-  .service-feature {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-    font-size: 0.875rem;
-    color: #374151;
+  .service-option {
+    border-left: 3px solid #E0941A;
+    padding-left: 1rem;
   }
 
-  .service-feature-check {
+  .service-option-name {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #3A3530;
+    margin-bottom: 0.25rem;
+  }
+
+  .service-option-desc {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: #4B5563;
+    margin: 0;
+  }
+
+  .service-link {
+    margin-top: auto;
+    font-size: 0.9375rem;
+    font-weight: 600;
     color: #E0941A;
-    font-weight: 700;
-    flex-shrink: 0;
-    margin-top: 0.05em;
+    text-decoration: none;
   }
+
+  .service-link:hover { text-decoration: underline; }
 
   /* Footer */
   .services-footer {
@@ -199,18 +207,11 @@ const phases = [
     margin-top: 3rem;
   }
 
-  @media (max-width: 960px) {
+  @media (max-width: 760px) {
     .services-grid {
       grid-template-columns: 1fr;
-      max-width: 480px;
+      max-width: 520px;
       margin-inline: auto;
-    }
-  }
-
-  @media (min-width: 640px) and (max-width: 960px) {
-    .services-grid {
-      grid-template-columns: repeat(2, 1fr);
-      max-width: 100%;
     }
   }
 </style>
