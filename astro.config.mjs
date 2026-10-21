@@ -13,4 +13,11 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   integrations: [mdx(), sitemap()],
+  redirects: {
+    '/podcast': '/',
+    '/blog': '/',
+    '/blog/amazon-ads-for-business-books': '/',
+    '/blog/business-book-that-grows-your-business': '/',
+    '/blog/why-write-a-business-book': '/',
+  },
 });
