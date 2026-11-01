@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AudienceLanding from '../components/AudienceLanding.astro';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Self-Help Book Marketing & Publishing',
+  serviceType: 'Book marketing and publishing',
+  url: new URL('/self-help', Astro.site).href,
+  provider: { '@id': new URL('/#organization', Astro.site).href },
+  areaServed: 'Worldwide',
+  audience: { '@type': 'Audience', audienceType: 'self-help authors' },
+};
+---
+
+<BaseLayout
+  title="Self-Help Book Marketing & Publishing"
+  description="Marketing and publishing help for self-help authors: a strategy built for your book, weekly support to carry it out, and help getting it published."
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <AudienceLanding
+    eyebrow="Self-Help Book Marketing & Publishing"
+    heading="Your self-help book can help people."
+    accent="First they have to find it."
+    sub="I build a marketing plan around the readers your book was written for, then help you carry it out, one week at a time."
+    weekGoals={[
+      { text: 'Rewrite the Amazon description around your reader\'s problem', done: true },
+      { text: 'Pitch three podcasts on burnout and recovery', done: true },
+      { text: 'Set up a newsletter swap with an author in your group', done: false },
+      { text: 'Turn chapter two into a short Instagram series', done: false },
+    ]}
+    problems={[
+      {
+        icon: '📉',
+        title: 'The launch came and went.',
+        body: 'Sales have slowed to a trickle since launch week, and you\'re not sure what to try next.',
+      },
+      {
+        icon: '🌀',
+        title: 'You\'re trying everything at once.',
+        body: 'Social, ads, podcasts, a newsletter. A little of each, none of it consistently, and no way to tell what\'s working.',
+      },
+      {
+        icon: '🏝️',
+        title: 'You\'re doing it alone.',
+        body: 'Marketing a book on your own, with no one to ask, is slow. And it\'s easy to stop.',
+      },
+    ]}
+    channelsHeading="Where self-help readers find their next book"
+    channelsIntro="People pick up a self-help book because of something going on in their life right now. The strategy starts with where your reader already goes for help, then picks the few places worth your time."
+    channels={[
+      {
+        icon: '🎙️',
+        title: 'Podcasts',
+        body: 'Shows on wellbeing, relationships, and growth, where listeners already trust the host\'s recommendations.',
+      },
+      {
+        icon: '📬',
+        title: 'Newsletters',
+        body: 'Writers and coaches with engaged lists in your topic, open to features and swaps.',
+      },
+      {
+        icon: '📱',
+        title: 'Social media',
+        body: 'Instagram, TikTok, and YouTube, where many readers meet an author\'s ideas before the book.',
+      },
+      {
+        icon: '🧘',
+        title: 'Your own practice',
+        body: 'If you coach, teach, or treat people, your clients and their circles are already your readers.',
+      },
+      {
+        icon: '📚',
+        title: 'Reader communities',
+        body: 'Goodreads, book clubs, and online groups built around the problems your book takes on.',
+      },
+      {
+        icon: '🗣️',
+        title: 'Workshops and talks',
+        body: 'Webinars, retreats, and events that turn a chapter into something people can experience.',
+      },
+    ]}
+    faqs={[
+      {
+        q: 'Do you work with coaches, therapists, and other practitioners?',
+        a: 'Yes. Many self-help authors also run a practice. The weekly goals are sized to the time you actually have.',
+      },
+      {
+        q: 'My book came out a while ago. Is it too late?',
+        a: 'No. Most of what helps a self-help book find readers works at any stage. The audit shows where the book stands now and what\'s worth doing next.',
+      },
+      {
+        q: 'Do I have to be on social media?',
+        a: 'No. It\'s one option among several. If it doesn\'t suit you or your readers, the strategy will lean on the channels that do.',
+      },
+      {
+        q: 'I\'m traditionally published. Can you still help?',
+        a: 'Yes. The publishing services won\'t apply, but the marketing work does. Self-published and hybrid authors are welcome too.',
+      },
+      {
+        q: 'How much does it cost?',
+        a: 'It depends on what you need. I\'ll walk you through the options and pricing on the call.',
+      },
+    ]}
+  />
+</BaseLayout>

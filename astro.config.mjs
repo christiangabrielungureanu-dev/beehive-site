@@ -16,8 +16,6 @@ export default defineConfig({
   integrations: [mdx(), sitemap()],
   redirects: {
     '/podcast': '/',
-    '/self-help': '/',
-    '/business': '/',
     '/blog': '/',
     '/blog/amazon-ads-for-business-books': '/',
     '/blog/business-book-that-grows-your-business': '/',

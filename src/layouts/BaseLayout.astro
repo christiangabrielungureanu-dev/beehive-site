@@ -12,8 +12,8 @@ interface Props {
 }
 
 const {
-  title = 'Self-Help Book Marketing & Publishing | Beehive',
-  description = 'Marketing strategy, weekly support, and publishing help for self-help authors, so your book reaches the readers it was written for.',
+  title = 'Beehive Book Marketing | Nonfiction Marketing & Publishing',
+  description = 'Marketing strategy, weekly support, and publishing help for nonfiction authors, so your book reaches the readers it was written for.',
   ogImage = '/og-image.png',
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
   ogType = 'website',
@@ -40,7 +40,7 @@ const organizationSchema = {
   url: new URL('/', Astro.site).href,
   logo: new URL('/images/logo.png', Astro.site).href,
   image: new URL('/og-image.png', Astro.site).href,
-  description: 'Marketing strategy, weekly coaching, and publishing help for self-help authors.',
+  description: 'Marketing strategy, weekly coaching, and publishing help for nonfiction authors.',
   founder: { '@id': new URL('/about', Astro.site).href },
   areaServed: 'Worldwide',
   sameAs: [

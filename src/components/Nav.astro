@@ -1,7 +1,12 @@
 ---
+const solutions = [
+  { label: 'Self-Help Authors', href: '/self-help' },
+  { label: 'Business Authors', href: '/business' },
+];
+
 const navLinks = [
-  { label: 'About', href: '/about' },
   { label: 'Services', href: '/services' },
+  { label: 'About', href: '/about' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -22,6 +27,27 @@ const currentPath = Astro.url.pathname;
 
     <!-- Desktop links -->
     <nav class="nav-links" aria-label="Main navigation">
+      <div class="nav-dropdown">
+        <button
+          class={`nav-link nav-dropdown-toggle ${solutions.some(s => currentPath.startsWith(s.href)) ? 'nav-link--active' : ''}`}
+          id="solutions-toggle"
+          aria-expanded="false"
+          aria-controls="solutions-menu"
+        >
+          Solutions
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg>
+        </button>
+        <div class="nav-dropdown-menu" id="solutions-menu">
+          {solutions.map(link => (
+            <a
+              href={link.href}
+              class={`nav-dropdown-link ${currentPath.startsWith(link.href) ? 'nav-dropdown-link--active' : ''}`}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
       {navLinks.map(link => (
         <a
           href={link.href}
@@ -48,6 +74,10 @@ const currentPath = Astro.url.pathname;
   <!-- Mobile menu -->
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <nav aria-label="Mobile navigation">
+      <span class="mobile-group-label">Solutions</span>
+      {solutions.map(link => (
+        <a href={link.href} class="mobile-link mobile-link--sub">{link.label}</a>
+      ))}
       {navLinks.map(link => (
         <a href={link.href} class="mobile-link">{link.label}</a>
       ))}
@@ -116,6 +146,82 @@ const currentPath = Astro.url.pathname;
     background: #FFF8EC;
   }
 
+  /* Solutions dropdown */
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .nav-dropdown-toggle svg {
+    transition: transform 0.15s;
+  }
+
+  .nav-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 13rem;
+    padding: 0.5rem;
+    margin-top: 0.375rem;
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.15s, transform 0.15s, visibility 0.15s;
+  }
+
+  /* Invisible bridge so the menu stays open while the pointer moves down to it */
+  .nav-dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -0.5rem;
+    left: 0;
+    right: 0;
+    height: 0.5rem;
+  }
+
+  .nav-dropdown:hover .nav-dropdown-menu,
+  .nav-dropdown:focus-within .nav-dropdown-menu,
+  .nav-dropdown.is-open .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav-dropdown:hover .nav-dropdown-toggle svg,
+  .nav-dropdown.is-open .nav-dropdown-toggle svg {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown-link {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: #3A3530;
+    text-decoration: none;
+    padding: 0.625rem 0.875rem;
+    border-radius: 0.5rem;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .nav-dropdown-link:hover,
+  .nav-dropdown-link--active {
+    color: #E0941A;
+    background: #FFF8EC;
+  }
+
   .nav-cta-wrap {
     flex-shrink: 0;
   }
@@ -173,6 +279,21 @@ const currentPath = Astro.url.pathname;
     color: #E0941A;
   }
 
+  .mobile-group-label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6B7280;
+    padding: 0.5rem 0 0.25rem;
+  }
+
+  .mobile-link--sub {
+    padding-left: 1rem;
+  }
+
   @media (max-width: 768px) {
     .nav-links,
     .nav-cta-wrap {
@@ -193,5 +314,29 @@ const currentPath = Astro.url.pathname;
     const isOpen = menu?.classList.toggle('is-open');
     toggle.setAttribute('aria-expanded', String(isOpen));
     menu?.setAttribute('aria-hidden', String(!isOpen));
+  });
+
+  // Solutions dropdown: opens on hover via CSS; click toggles it for touch and keyboard users
+  const solutionsToggle = document.getElementById('solutions-toggle');
+  const dropdown = solutionsToggle?.parentElement;
+
+  solutionsToggle?.addEventListener('click', () => {
+    const isOpen = dropdown?.classList.toggle('is-open');
+    solutionsToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  document.addEventListener('click', (e) => {
+    if (dropdown && !dropdown.contains(e.target as Node)) {
+      dropdown.classList.remove('is-open');
+      solutionsToggle?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && dropdown?.classList.contains('is-open')) {
+      dropdown.classList.remove('is-open');
+      solutionsToggle?.setAttribute('aria-expanded', 'false');
+      solutionsToggle?.focus();
+    }
   });
 </script>
