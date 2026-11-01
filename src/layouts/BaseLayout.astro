@@ -12,14 +12,43 @@ interface Props {
 }
 
 const {
-  title = 'Marketing & Publishing for Self-Help Authors — Beehive',
-  description = 'Marketing strategy, weekly support, and publishing help for self-help authors — so your book reaches the readers it was written for.',
+  title = 'Beehive Book Marketing | Nonfiction Marketing & Publishing',
+  description = 'Marketing strategy, weekly support, and publishing help for nonfiction authors, so your book reaches the readers it was written for.',
   ogImage = '/og-image.png',
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
   ogType = 'website',
 } = Astro.props;
 
 const ogImageURL = new URL(ogImage, Astro.site).href;
+
+// Tells Google which name to show as the site name in search results,
+// so page titles don't need a brand suffix
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Beehive Book Marketing',
+  alternateName: 'Beehive',
+  url: new URL('/', Astro.site).href,
+};
+const isHome = Astro.url.pathname === '/';
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': new URL('/#organization', Astro.site).href,
+  name: 'Beehive Book Marketing',
+  url: new URL('/', Astro.site).href,
+  logo: new URL('/images/logo.png', Astro.site).href,
+  image: new URL('/og-image.png', Astro.site).href,
+  description: 'Marketing strategy, weekly coaching, and publishing help for nonfiction authors.',
+  founder: { '@id': new URL('/about', Astro.site).href },
+  areaServed: 'Worldwide',
+  sameAs: [
+    'https://www.linkedin.com/company/beehive-book-marketing/',
+    'https://www.instagram.com/beehivebookmarketing/',
+    'https://www.youtube.com/@beehivebookmarketing',
+  ],
+};
 ---
 
 <!doctype html>
@@ -38,6 +67,7 @@ const ogImageURL = new URL(ogImage, Astro.site).href;
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Open Graph -->
+    <meta property="og:site_name" content="Beehive Book Marketing" />
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -51,6 +81,10 @@ const ogImageURL = new URL(ogImage, Astro.site).href;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
+
+    {isHome && <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />}
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <slot name="head" />
 
     <!-- Fonts: preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

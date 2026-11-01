@@ -12,7 +12,7 @@ const personSchema = {
   url: new URL('/about', Astro.site).href,
   image: new URL('/cristian-pic.jpg', Astro.site).href,
   jobTitle: 'Founder',
-  description: 'Founder of Beehive Book Marketing. Helps self-help authors market, publish, and distribute their books.',
+  description: 'Founder of Beehive Book Marketing. Helps nonfiction authors market, publish, and distribute their books.',
   sameAs: ['https://www.linkedin.com/in/cristian-ungureanu/'],
   worksFor: {
     '@type': 'Organization',
@@ -23,8 +23,8 @@ const personSchema = {
 ---
 
 <BaseLayout
-  title="About Cristian Ungureanu — Beehive Book Marketing"
-  description="Cristian Ungureanu helps self-help authors market, publish, and distribute their books so they reach the readers they were written for."
+  title="About Cristian Ungureanu, Founder of Beehive Book Marketing"
+  description="Cristian Ungureanu helps nonfiction authors market, publish, and distribute their books so they reach the readers they were written for."
 >
   <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   <!-- Hero -->
@@ -38,7 +38,7 @@ const personSchema = {
         </h1>
         <p class="about-hero-sub">
           My name is Cristian Ungureanu. I run Beehive — marketing and publishing help for
-          self-help authors, built on one idea: the hard part isn't writing the book, it's
+          nonfiction authors, built on one idea: the hard part isn't writing the book, it's
           getting it to the readers it was written for.
         </p>
       </div>
@@ -85,7 +85,7 @@ const personSchema = {
           the most. They were the ones that picked the few right things and kept doing them.
         </p>
         <p>
-          When I started paying attention to self-help publishing, that's exactly what was
+          When I started paying attention to nonfiction publishing, that's exactly what was
           missing. Good books, and authors with no clear plan for getting them read — trying
           everything at once or nothing at all, and usually doing it alone.
         </p>
@@ -125,8 +125,7 @@ const personSchema = {
           <span class="philosophy-icon">🐝</span>
           <h3>Authors help authors</h3>
           <p>
-            The strongest promotion for a self-help book is another self-help author with the
-            same readers. The author group is there so you can share what's working and promote
+            The strongest promotion for a book is another author with the same readers. The author group is there so you can share what's working and promote
             each other's books.
           </p>
         </div>
@@ -148,20 +147,19 @@ const personSchema = {
       <div class="about-why-content">
         <span class="eyebrow">Why This</span>
         <h2 class="about-section-heading">
-          Why Self-Help
+          Why Nonfiction
         </h2>
         <p>
-          The honest answer: these books matter in a way most books don't. Someone picks up a
-          self-help book at a genuinely bad moment — a marriage coming apart, a career they can't
-          stand, a habit they can't break — and occasionally the right one changes what happens
-          next.
+          The honest answer: these books matter in a way most books don't. Someone picks one up
+          at a turning point — a marriage coming apart, a career they can't stand, a business
+          that isn't working — and occasionally the right one changes what happens next.
         </p>
         <p>
           But most of them never reach that person. Not because they aren't good. Because the
           author didn't have a plan for getting the book read, or anyone to help carry it out.
         </p>
         <p>
-          That's the problem I want to solve. I want to be the person a self-help author calls
+          That's the problem I want to solve. I want to be the person a nonfiction author calls
           when they've written something worth reading and don't know who to tell.
         </p>
         <a href="/contact" class="btn-primary" style="display:inline-flex;margin-top:1.5rem;">
@@ -171,7 +169,7 @@ const personSchema = {
       <div class="about-why-quote">
         <blockquote class="about-pullquote">
           <span class="about-pullquote-mark" aria-hidden="true">&ldquo;</span>
-          <p>The hardest part of a self-help book isn't writing it. It's getting it to the person who needed it that week.</p>
+          <p>The hardest part of a nonfiction book isn't writing it. It's getting it to the person who needed it that week.</p>
           <footer>
             <span class="about-pullquote-name">Cristian Ungureanu</span>
             <span class="about-pullquote-title">Founder, Beehive Book Marketing</span>

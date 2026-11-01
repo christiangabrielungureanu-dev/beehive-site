@@ -8,6 +8,7 @@ import vercel from '@astrojs/vercel';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://beehivebookmarketing.com',
+  trailingSlash: 'never',
   adapter: vercel(),
   vite: {
     plugins: [tailwindcss()]

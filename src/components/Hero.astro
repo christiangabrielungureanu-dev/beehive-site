@@ -9,12 +9,14 @@
   <div class="container hero-inner">
     <div class="hero-content">
       <!-- Eyebrow -->
-      <span class="hero-eyebrow">Marketing & Publishing for Self-Help Authors</span>
+      <h1 class="hero-title">
+        <span class="hero-eyebrow">Marketing & Publishing for Nonfiction Authors</span>
 
       <!-- Heading -->
-      <h1 class="hero-heading">
-        You wrote the book.<br />
-        <em class="hero-heading-accent">Now let's get it read.</em>
+        <span class="hero-heading">
+          You wrote the book.<br />
+          <em class="hero-heading-accent">Now let's get it read.</em>
+        </span>
       </h1>
 
       <!-- Subheadline -->
@@ -75,6 +77,10 @@
   .hero-dots--tl { top: -40px; left: -40px; }
   .hero-dots--br { bottom: -40px; right: -40px; }
 
+  .hero-title {
+    margin: 0;
+  }
+
   .hero-eyebrow {
     display: inline-block;
     font-family: var(--font-body);
@@ -86,10 +92,11 @@
     background: rgba(224,148,26,0.1);
     padding: 0.375rem 0.875rem;
     border-radius: 9999px;
-    margin-bottom: 1.25rem;
+    margin: 0 0 1.25rem;
   }
 
   .hero-heading {
+    display: block;
     font-family: var(--font-heading);
     font-size: clamp(2.25rem, 4vw, 3.5rem);
     font-weight: 700;
