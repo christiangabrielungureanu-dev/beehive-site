@@ -31,14 +31,14 @@ const podcastSchema = {
     'Conversations on how a nonfiction book reaches the readers it was written for, with authors, publishers, book marketers, and the hosts and editors who choose who gets heard.',
   url: new URL('/podcast', Astro.site).href,
   webFeed: 'https://api.riverside.com/hosting/Zztq7XR5.rss',
-  image: new URL('/og-abstract.png', Astro.site).href,
+  image: new URL('/og-image.png', Astro.site).href,
   author: { '@type': 'Person', name: 'Cristian Ungureanu' },
 };
 ---
 
 <BaseLayout
   title="Nonfiction Book Marketing & Publishing Podcast"
-  description="Conversations on how a nonfiction book reaches its readers, with authors, publishers, book marketers, and the hosts and editors who choose who gets heard. Listen on Spotify, Apple Podcasts, or YouTube."
+  description="How does a nonfiction book reach its readers? Conversations with authors, publishers, book marketers, and podcast hosts. On Spotify, Apple, and YouTube."
 >
   <script type="application/ld+json" set:html={JSON.stringify(podcastSchema)} />
 

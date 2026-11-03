@@ -37,7 +37,8 @@ export const POST: APIRoute = async ({ request }) => {
       }),
     });
 
-    if (res.ok) {
+    // 409 means the contact already exists in Loops; for the visitor that's still a success
+    if (res.ok || res.status === 409) {
       return new Response(JSON.stringify({ success: true }), {
         headers: { 'Content-Type': 'application/json' },
       });
