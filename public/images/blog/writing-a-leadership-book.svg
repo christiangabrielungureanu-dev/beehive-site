@@ -11,10 +11,10 @@
   <text x="80" y="240" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="700" fill="#FFFFFF" text-anchor="start">Writing a Leadership</text>
 
   <!-- Title line 2 -->
-  <text x="80" y="330" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="700" fill="#FFFFFF" text-anchor="start">Book, and Inviting</text>
+  <text x="80" y="330" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="700" fill="#FFFFFF" text-anchor="start">Book People</text>
 
   <!-- Title line 3 - italic, amber -->
-  <text x="80" y="415" font-family="Georgia, 'Times New Roman', serif" font-size="68" font-weight="700" font-style="italic" fill="#E8A317" text-anchor="start">12 Experts to Reply</text>
+  <text x="80" y="415" font-family="Georgia, 'Times New Roman', serif" font-size="68" font-weight="700" font-style="italic" fill="#E8A317" text-anchor="start">Actually Read</text>
 
   <!-- Divider -->
   <rect x="80" y="458" width="600" height="1" fill="rgba(255,255,255,0.15)"/>
