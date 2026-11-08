@@ -14,4 +14,7 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   integrations: [mdx(), sitemap()],
+  redirects: {
+    '/blog/business-book-as-a-comic': { status: 301, destination: '/blog/writing-a-book-as-a-consultant' },
+  },
 });
